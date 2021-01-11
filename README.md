@@ -1,6 +1,6 @@
 # AppleMedia App
 
-![Image](https://github.com/stolenhen/Test/blob/main/Promo.png)
+![Image](https://github.com/stolenhen/AppleMedia/blob/main/Promo.png)
 ## Description
 
 ### About the App:
