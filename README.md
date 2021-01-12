@@ -7,6 +7,7 @@
 - built with SwiftUI and Combine
 - based on MVVM design pattern
 - using splendid Apple iTunes API
+- saving all user personal data to UserDefaults
 
 ### Users can:
 - select any country to see top 200 movies in the region (with localised description, posters, trailers etc.)
