@@ -1,12 +1,13 @@
 # AppleMedia App
 
-![Image](https://github.com/stolenhen/Test/blob/main/Promo.png)
+![Image](https://github.com/stolenhen/AppleMedia/blob/main/Promo.png)
 ## Description
 
 ### About the App:
 - built with SwiftUI and Combine
 - based on MVVM design pattern
 - using splendid Apple iTunes API
+- saving all user personal data to UserDefaults
 
 ### Users can:
 - select any country to see top 200 movies in the region (with localised description, posters, trailers etc.)
