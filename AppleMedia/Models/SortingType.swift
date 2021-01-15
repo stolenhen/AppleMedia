@@ -1,5 +1,5 @@
 //
-//  SortingRype.swift
+//  SortingType.swift
 //  AppleMedia
 //
 //  Created by stolenhen on 23.11.2020.

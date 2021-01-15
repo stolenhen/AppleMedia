@@ -21,8 +21,8 @@ struct WebImageView: View {
         
         if animated {
             ZStack {
-                if viewModel.image != nil {
-                    Image(uiImage: viewModel.image!)
+                if let image = viewModel.image {
+                    Image(uiImage: image)
                         .resizable() }
                 else {
                     Color(.clear)
@@ -39,8 +39,8 @@ struct WebImageView: View {
         
         else {
             ZStack {
-                if viewModel.image != nil {
-                    Image(uiImage: viewModel.image!)
+                if let image = viewModel.image {
+                    Image(uiImage: image)
                         .resizable() }
                 else {
                     Color(colorScheme == .dark ? .darkMode : .lightMode)

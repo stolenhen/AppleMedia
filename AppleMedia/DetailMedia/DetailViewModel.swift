@@ -115,9 +115,9 @@ struct Media: Identifiable, Codable {
     
     var id: String {
         detailResult.id
-        ?? detailResult.trackId?.description
-        ?? detailResult.collectionId?.description
-        ?? UUID().uuidString }
+            ?? detailResult.trackId?.description
+            ?? detailResult.collectionId?.description
+            ?? UUID().uuidString }
 }
 
 extension Media: Equatable, Hashable {
