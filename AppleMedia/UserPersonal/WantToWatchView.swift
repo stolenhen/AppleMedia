@@ -141,7 +141,7 @@ struct PopView: View {
                     Text(media.name)
                         .font(.system(size: 16))
                         .foregroundColor(.primary)
-                    Text(media.releaseDate, style: .date)
+                    Text(media.releaseDate)
                         .font(.system(size: 14))
                         .foregroundColor(.secondary)
                 }

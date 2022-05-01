@@ -12,8 +12,7 @@ final class DetailViewModel: ObservableObject {
     
     // MARK: - Publishers
     
-    @Published var defaultCountry = false
-    @Published var toDetail: ToDetail? = nil
+    @Published var toDetail: ToDetail?
     @Published private(set) var detailResults: [Media] = []
     
     // MARK: - Properties
@@ -43,10 +42,6 @@ final class DetailViewModel: ObservableObject {
                     }
                 },
                 receiveValue: { [weak self] in
-                    guard !$0.results.isEmpty else {
-                        self?.defaultCountry.toggle()
-                        return
-                    }
                     self?.setupCollection(result: $0.results.map(Media.init)) })
             .store(in: &anyCancellable)
     }
@@ -67,16 +62,15 @@ extension DetailViewModel {
 struct Media: Identifiable, Codable {
     let detailResult: DetailModel
     
-    var posterPath:  String { detailResult.artworkUrl100 ?? "" }
-    var artistName:  String { detailResult.artistName ?? ""}
-    var genreName:   String { detailResult.primaryGenreName ?? "" }
+    var posterPath: String { detailResult.artworkUrl100 ?? "" }
+    var artistName: String { detailResult.artistName ?? "" }
+    var genreName: String { detailResult.primaryGenreName ?? "" }
     var description: String { detailResult.longDescription ?? "" }
-    var advisory:    String { detailResult.contentAdvisoryRating ?? "Unrated" }
+    var advisory: String { detailResult.contentAdvisoryRating ?? "Unrated" }
     var rentalPrice: String { String(detailResult.trackRentalPrice ?? 0) }
-    var currency:    String { (" " + (detailResult.currency ?? "No price")) }
-    var country:     String { detailResult.country ?? ""}
-    var movieCount:  String { String(detailResult.trackCount ?? 0) }
-    
+    var currency: String { (" " + (detailResult.currency ?? "No price")) }
+    var country: String { detailResult.country ?? ""}
+    var movieCount: String { String(detailResult.trackCount ?? 0) }
     var collectionPrice: String { String(detailResult.collectionHdPrice ?? 0) }
     
     var name: String {
@@ -86,10 +80,11 @@ struct Media: Identifiable, Codable {
             ?? "Unknown media"
     }
     
-    var releaseDate: Date {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        return dateFormatter.date(from: detailResult.releaseDate ?? "") ?? Date()
+    var releaseDate: String {
+        guard let date = DateFormatter.isoFormatter.date(from: detailResult.releaseDate ?? "") else {
+            return ""
+        }
+        return DateFormatter.defaultFormatter.string(from: date)
     }
     
     var duration: String {
@@ -101,18 +96,55 @@ struct Media: Identifiable, Codable {
     }
     
     var itunesLink: URL {
-        URL(string: detailResult.trackViewUrl ?? "")
-            ?? URL(string: "https://www.apple.com/404")! }
+        URL(string: detailResult.trackViewUrl ?? "") ?? URL(string: "https://www.apple.com/404")!
+    }
     
     var trailerLink: URL {
         URL(string: detailResult.previewUrl ?? "")
-            ?? Bundle.main.url(forResource: "Placeholder", withExtension: "mov")! }
+            ?? Bundle.main.url(forResource: "Placeholder", withExtension: "mov")!
+    }
     
     var id: String {
         detailResult.id
             ?? detailResult.trackId?.description
             ?? detailResult.collectionId?.description
-            ?? UUID().uuidString }
+            ?? UUID().uuidString
+    }
+    
+    var shortInfo: [ShortInfoType] {
+        ShortInfoType.allCases.filter( { $0.title(for: self) != "0" && $0.title(for: self) != "0.0" } )
+    }
+    
+    enum ShortInfoType: String, CaseIterable, Identifiable {
+        case advisory = "Advisory rating"
+        case genre = "Genre"
+        case releaseDate = "Release date"
+        case duration = "Duration"
+        case rentalPrice = "Movie rental price"
+        case moviesInCollection = "Movies in collection"
+        case collectionHDPrice = "Collection HD price"
+        
+        var id: String { rawValue }
+        
+        func title(for media: Media) -> String {
+            switch self {
+            case .advisory:
+                return media.advisory
+            case .genre:
+                return media.genreName
+            case .releaseDate:
+                return media.releaseDate
+            case .duration:
+                return media.duration
+            case .rentalPrice:
+                return media.rentalPrice
+            case .moviesInCollection:
+                return media.movieCount
+            case .collectionHDPrice:
+                return media.collectionPrice + media.currency
+            }
+        }
+    }
 }
 
 extension Media: Equatable, Hashable {

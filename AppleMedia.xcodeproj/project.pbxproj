@@ -47,6 +47,7 @@
 		7BD6081F2577A165006ECF38 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BD6081E2577A165006ECF38 /* Errors.swift */; };
 		7BF0481125764512004670BB /* GlobalSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF0481025764512004670BB /* GlobalSearchView.swift */; };
 		7BF048142576504A004670BB /* GlobalSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF048132576504A004670BB /* GlobalSearchViewModel.swift */; };
+		FE8413D1281EE03A004A5794 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8413D0281EE03A004A5794 /* DateFormatter+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -92,6 +93,7 @@
 		7BD6081E2577A165006ECF38 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		7BF0481025764512004670BB /* GlobalSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchView.swift; sourceTree = "<group>"; };
 		7BF048132576504A004670BB /* GlobalSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchViewModel.swift; sourceTree = "<group>"; };
+		FE8413D0281EE03A004A5794 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				7B8EA1EB2593959D0097D31F /* URLSession+Extension.swift */,
 				7B73D29C2584FF2800CED36B /* UIColor+Extension.swift */,
 				7BC2DDFC258C831E00669243 /* Int+Extension.swift */,
+				FE8413D0281EE03A004A5794 /* DateFormatter+Extension.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 				7B73D29D2584FF2800CED36B /* UIColor+Extension.swift in Sources */,
 				7B8EA1F125939AB40097D31F /* Constants.swift in Sources */,
 				7BC2DDFD258C831E00669243 /* Int+Extension.swift in Sources */,
+				FE8413D1281EE03A004A5794 /* DateFormatter+Extension.swift in Sources */,
 				7B8EA1EC2593959D0097D31F /* URLSession+Extension.swift in Sources */,
 				7B0FA24A256AFEC500FA2B28 /* NetworkService.swift in Sources */,
 				7B0FA247256AF64D00FA2B28 /* ToDetail.swift in Sources */,

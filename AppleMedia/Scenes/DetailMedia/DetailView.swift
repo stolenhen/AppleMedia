@@ -25,19 +25,23 @@ struct DetailView: View {
                                 dismiss()
                             }
                         VStack(alignment: .center, spacing: 0) {
-                            TopView(media: media).frame(height: 100)
-                            ButtonsView(media: media)
-                            InfoView(media: media).padding(.horizontal)
+                            topView(for: media)
+                            buttonsView(for: media)
+                            InfoView(media: media)
+                                .padding(.horizontal)
                             
                             if !viewModel.hasCollection {
-                                Divider().padding()
+                                Divider()
+                                    .padding()
                                 TrailerView(videoPath: media.trailerLink)
-                                Divider().padding()
+                                Divider()
+                                    .padding()
                                 DescriptionView(media: media)
                             }
                             
                             if viewModel.hasCollection {
-                                Divider().padding()
+                                Divider()
+                                    .padding()
                                 DetailCollectionView(viewModel: viewModel)
                                     .padding(.bottom, 120)
                             }
@@ -66,107 +70,85 @@ struct DetailView: View {
         }
         .onAppear {
             guard viewModel.detailResults.isEmpty else { return }
-                viewModel.fetchDetail(mediaId: mediaId, country: userPersonal.countryName.getCountryCode)
-        }
-        .onChange(of: viewModel.defaultCountry) {
-            guard $0 else { return }
-            viewModel.fetchDetail(mediaId: mediaId, country: userPersonal.countryName)
-        }
-    }
-    
-    struct TopView: View {
-        @Environment(\.colorScheme) private var colorScheme
-        let media: Media
-        
-        var body: some View {
-            HStack(alignment: .top) {
-                WebImageView(imagePath: media.posterPath.resizedPath(size: 200))
-                    .frame(width: 100, height: 150)
-                    .aspectRatio(contentMode: .fill)
-                    .cornerRadius(10)
-                    .overlay(RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color(colorScheme == .dark ? .darkMode : .lightMode), lineWidth: 4)
-                                .shadow(color: .gray, radius: 2))
-                    .offset(x: 0, y: -70)
-                    .padding(.horizontal)
-                
-                VStack(alignment: .leading, spacing: 5) {
-                    
-                    Text(media.name)
-                        .font(.title3)
-                        .foregroundColor(.primary)
-                    
-                    Text(media.artistName)
-                        .font(.system(size: 16, weight: .light))
-                        .foregroundColor(.secondary)
-                    
-                    Spacer()
-                }
-                .lineLimit(nil)
-                .frame(height: 130)
-                .padding(.vertical, 10)
-                
-                Spacer()
-            }
-            .padding(.top, 50)
-        }
-    }
-    
-    struct ButtonsView: View {
-        
-        let media: Media
-        
-        var body: some View {
-            HStack {
-                
-                Link(destination: media.itunesLink) {
-                    Label("Itunes", systemImage: "applelogo")
-                        .padding(.vertical, 2)
-                        .padding(.horizontal, 5)
-                        .foregroundColor(.gray)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke()
-                                .foregroundColor(
-                                    Color(.systemPink))) }
-                Text(media.country)
-                    .padding(.vertical, 2)
-                    .padding(.horizontal, 5)
-                    .background(RoundedRectangle(cornerRadius: 10)
-                                    .stroke()
-                                    .foregroundColor(Color.secondary))
-                    .foregroundColor(Color.secondary)
-                    .padding(.leading, 2)
-                
-                Spacer()
-                
-                WantToWatchButton(media: media)
-            }
-            .padding()
-        }
-    }
-    
-    struct DescriptionView: View {
-        
-        let media: Media
-        
-        var body: some View {
-            VStack(alignment: .leading, spacing: 0) {
-                
-                Text("Description")
-                    .font(.system(size: 20, weight: .light))
-                    .foregroundColor(.primary)
-                    .padding(.bottom, 5)
-                
-                Text(media.description)
-                    .fontWeight(.light).font(.system(size: 14))
-                    .foregroundColor(.primary)
-                    .padding(.bottom)
-            }
-            .padding(.horizontal)
+            viewModel.fetchDetail(mediaId: mediaId, country: userPersonal.countryName.getCountryCode)
         }
     }
 }
+
+private extension DetailView {
+    func topView(for media: Media) -> some View {
+        HStack(alignment: .top) {
+            WebImageView(imagePath: media.posterPath.resizedPath(size: 200))
+                .frame(width: 100, height: 150)
+                .aspectRatio(contentMode: .fill)
+                .cornerRadius(10)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color(colorScheme == .dark ? .darkMode : .lightMode), lineWidth: 4)
+                        .shadow(color: .gray, radius: 2)
+                )
+                .offset(x: 0, y: -50)
+                .padding(.horizontal)
+            VStack(alignment: .leading, spacing: 5) {
+                Text(media.name)
+                    .font(.title3)
+                    .foregroundColor(.primary)
+                Text(media.artistName)
+                    .font(.system(size: 16, weight: .light))
+                    .foregroundColor(.secondary)
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding([.top, .horizontal], 10)
+    }
+    
+    func buttonsView(for media: Media) -> some View {
+        HStack {
+            Link(destination: media.itunesLink) {
+                Label("Itunes", systemImage: "applelogo")
+                    .padding(.vertical, 2)
+                    .padding(.horizontal, 5)
+                    .foregroundColor(.gray)
+                    .background(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke()
+                            .foregroundColor(
+                                Color(.systemPink))) }
+            Text(media.country)
+                .padding(.vertical, 2)
+                .padding(.horizontal, 5)
+                .background(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke()
+                        .foregroundColor(Color.secondary)
+                )
+                .foregroundColor(Color.secondary)
+                .padding(.leading, 2)
+            Spacer()
+            WantToWatchButton(media: media)
+        }
+        .padding([.horizontal, .bottom])
+    }
+}
+
+
+struct DescriptionView: View {
+    let media: Media
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text("Description")
+                .font(.system(size: 20, weight: .light))
+                .foregroundColor(.primary)
+                .padding(.bottom, 5)
+            Text(media.description)
+                .fontWeight(.light).font(.system(size: 14))
+                .foregroundColor(.primary)
+                .padding(.bottom)
+        }
+        .padding(.horizontal)
+    }
+}
+
 
 struct InfoView: View {
     let media: Media
@@ -177,94 +159,23 @@ struct InfoView: View {
                 .font(.system(size: 20, weight: .light))
                 .foregroundColor(.primary)
                 .padding(.bottom, 5)
-            
-            HStack(spacing: 0) {
-                Text("Advisory rating")
-                    .fontWeight(.light)
-                    .foregroundColor(.secondary)
-                Spacer()
-                Text(media.advisory)
-                    .fontWeight(.light)
-                    .font(.system(size: 14))
+            ForEach(media.shortInfo) { mediaType in
+                info(for: mediaType)
             }
-            HStack(spacing: 0) {
-                Text("Genre")
-                    .fontWeight(.light)
-                    .foregroundColor(.secondary)
-                Spacer()
-                Text(media.genreName)
-                    .fontWeight(.light)
-                    .font(.system(size: 14))
-            }
-            
-            HStack {
-                Text("Release date")
-                    .fontWeight(.light)
-                    .foregroundColor(.secondary)
-                
-                Spacer()
-                
-                Text(media.releaseDate, style: .date)
-                    .fontWeight(.light)
-                    .font(.system(size: 14))
-            }
-            
-            if
-                media.duration != "0.0" {
-                HStack {
-                    Text("Duration")
-                        .fontWeight(.light)
-                        .foregroundColor(.secondary)
-                    
-                    Spacer()
-                    
-                    Text(media.duration)
-                        .fontWeight(.light)
-                        .font(.system(size: 14))
-                }
-            }
-            
-            if
-                media.rentalPrice != "0.0" {
-                HStack {
-                    Text("Movie rental price")
-                        .fontWeight(.light)
-                        .foregroundColor(.secondary)
-                    
-                    Spacer()
-                    
-                    Text(media.rentalPrice + media.currency)
-                        .fontWeight(.light)
-                        .font(.system(size: 14))
-                }
-            }
-            
-            if
-                media.movieCount > "1" {
-                HStack {
-                    Text("Movies in collection")
-                        .fontWeight(.light)
-                        .foregroundColor(.secondary)
-                    
-                    Spacer()
-                    
-                    Text(media.movieCount)
-                        .fontWeight(.light)
-                        .font(.system(size: 14))
-                }
-                
-                HStack {
-                    Text("Collection HD price")
-                        .fontWeight(.light)
-                        .foregroundColor(.secondary)
-                    
-                    Spacer()
-                    
-                    Text(media.collectionPrice + media.currency)
-                        .fontWeight(.light)
-                        .font(.system(size: 14))
-                }
-            }
+        }
+    }
+}
+
+private extension InfoView {
+    func info(for type: Media.ShortInfoType) -> some View {
+        HStack(spacing: 0) {
+            Text(type.rawValue)
+                .fontWeight(.light)
+                .foregroundColor(.secondary)
+            Spacer()
+            Text(type.title(for: media))
+                .fontWeight(.light)
+                .font(.system(size: 14))
         }
     }
 }
