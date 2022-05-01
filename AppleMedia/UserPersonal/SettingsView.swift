@@ -13,10 +13,8 @@ struct SettingsView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
-            
             Color(colorScheme == .light ? .lightMode : .darkMode)
                 .frame(height: Constants.screenHeight * 0.1)
-            
             ZStack {
                 VStack(spacing: 10) {
                     Image(systemName: "globe")
@@ -27,9 +25,7 @@ struct SettingsView: View {
                 .foregroundColor(.secondary)
                 countryPicker
             }
-            
             Spacer()
-            
             ForEach(userPersonal.settings) { setting in
                 Button(
                     action: {
@@ -64,13 +60,10 @@ struct SettingsView: View {
         
         VStack(alignment: .leading) {
             HStack(alignment: .center) {
-                
                 Text("Select your country:")
                     .font(.title3)
                     .foregroundColor(.primary)
-                
                 Spacer()
-                
                 Button(
                     action: {
                         withAnimation {
@@ -83,11 +76,8 @@ struct SettingsView: View {
                         .foregroundColor(Color(.systemPink))
                 }
             }
-            
             TextField("Search country...", text: $userPersonal.countryName)
-            
             Divider().padding(.vertical)
-            
             Picker("", selection: $userPersonal.countryName) {
                 ForEach(userPersonal.countryNames, id: \.self) {
                     Text($0).tag($0)
