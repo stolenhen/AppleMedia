@@ -23,7 +23,6 @@ struct SettingItem: Identifiable {
 }
 
 enum SettingsType {
-    case country
     case mode
     case cleanStorage
 }

@@ -18,9 +18,7 @@ struct MainGridTopView: View {
                 .frame(height: Constants.screenHeight * 0.04)
             DynamicSearchView(expand: $userPersonal.expand,
                               searchTerm: $viewModel.searchTerm,
-                              title: userPersonal.defaultCode
-                              ? "US"
-                              : userPersonal.countryName.getCountryCode)
+                              title: userPersonal.countryName)
                 .onReceive(viewModel.$searchTerm) { value in
                     withAnimation {
                         viewModel.sortType =

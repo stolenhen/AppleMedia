@@ -35,6 +35,6 @@ extension String {
                 return localeCode
             }
         }
-        return "RU"
+        return name
     }
 }

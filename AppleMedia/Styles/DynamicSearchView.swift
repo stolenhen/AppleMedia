@@ -18,7 +18,6 @@ struct DynamicSearchView: View {
             HStack {
                 Image(systemName: "magnifyingglass.circle")
                     .font(.system(size: 18, weight: .light))
-                    .padding(1)
                     .foregroundColor(.secondary)
                     .onTapGesture {
                         withAnimation {
@@ -33,21 +32,23 @@ struct DynamicSearchView: View {
                             searchTerm = ""
                         }
                     }) {
-                        Image(systemName: "multiply.circle")
-                            .foregroundColor(.secondary)
-                            .font(.system(size: 18, weight: .light))
-                            .padding(.trailing, 5)
+                        if !searchTerm.isEmpty {
+                            Image(systemName: "multiply.circle")
+                                .foregroundColor(.secondary)
+                                .font(.system(size: 18, weight: .light))
+                                .padding(.trailing, 5)
+                        }
                     }
                 }
             }
             .frame(width: expand ? Constants.screenWidth * 0.82 : 22)
             .padding(5)
-            .background(RoundedRectangle(cornerRadius: 25)
-                            .fill(Color.white).opacity(colorScheme == .dark ? 0.1 : 1))
+            .background(
+                RoundedRectangle(cornerRadius: 25)
+                    .fill(Color.white).opacity(colorScheme == .dark ? 0.1 : 1)
+            )
             Spacer()
-            Text(expand
-                    ? title
-                    : title.getCountryName + " " + title.getCountryFlag)
+            Text(expand ? title : title.getCountryName + " " + title.getCountryFlag)
                 .font(.system(size: 16, weight: .light))
                 .padding(.vertical, 5)
                 .padding(.horizontal, expand ? 5 : 10)

@@ -21,7 +21,9 @@ struct DetailView: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     ForEach(viewModel.detailResults) { media in
                         ParallaxView(imagePath: media.posterPath)
-                            .onTapGesture { dismiss() }
+                            .onTapGesture {
+                                dismiss()
+                            }
                         VStack(alignment: .center, spacing: 0) {
                             TopView(media: media).frame(height: 100)
                             ButtonsView(media: media)
@@ -31,7 +33,8 @@ struct DetailView: View {
                                 Divider().padding()
                                 TrailerView(videoPath: media.trailerLink)
                                 Divider().padding()
-                                DescriptionView(media: media) }
+                                DescriptionView(media: media)
+                            }
                             
                             if viewModel.hasCollection {
                                 Divider().padding()
@@ -50,8 +53,7 @@ struct DetailView: View {
                     }
                 }
                 .background(Color(colorScheme == .dark ? .darkMode : .lightMode))
-            }
-            else {
+            } else {
                 VStack(spacing: 5) {
                     ProgressView()
                     Button(action: { dismiss() }) {
@@ -62,26 +64,22 @@ struct DetailView: View {
                 .background(Color(colorScheme == .dark ? .darkMode : .lightMode))
             }
         }
-        .onAppear { if viewModel.detailResults.isEmpty {
-            viewModel.fetchDetail(mediaId: mediaId,
-                                  country: userPersonal.countryName.getCountryCode) }
+        .onAppear {
+            guard viewModel.detailResults.isEmpty else { return }
+                viewModel.fetchDetail(mediaId: mediaId, country: userPersonal.countryName.getCountryCode)
         }
         .onChange(of: viewModel.defaultCountry) {
             guard $0 else { return }
-            viewModel.fetchDetail(mediaId: mediaId, country: userPersonal.defaultCountry)
+            viewModel.fetchDetail(mediaId: mediaId, country: userPersonal.countryName)
         }
     }
     
     struct TopView: View {
-        
         @Environment(\.colorScheme) private var colorScheme
-        
         let media: Media
         
         var body: some View {
-            
             HStack(alignment: .top) {
-                
                 WebImageView(imagePath: media.posterPath.resizedPath(size: 200))
                     .frame(width: 100, height: 150)
                     .aspectRatio(contentMode: .fill)
@@ -171,11 +169,9 @@ struct DetailView: View {
 }
 
 struct InfoView: View {
-    
     let media: Media
     
     var body: some View {
-        
         VStack(alignment: .leading, spacing: 0) {
             Text("Short information")
                 .font(.system(size: 20, weight: .light))
