@@ -8,14 +8,12 @@
 import SwiftUI
 
 enum GridMode {
-    
     case flexible(columnsCount: Int, spacing: CGFloat)
-   
+    
     var columns: [GridItem] {
         switch self {
         case let .flexible(count, spacing):
-            return
-                Array(repeating: GridItem(.flexible(), spacing: spacing), count: count)
+            return Array(repeating: GridItem(.flexible(), spacing: spacing), count: count)
         }
     }
 }

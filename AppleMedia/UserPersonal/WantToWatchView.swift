@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct WantToWatchView: View {
-    
     @EnvironmentObject private var userPersonal: UserPersonal
     @Environment(\.colorScheme) private var colorScheme
     @State private var showPopView = false
@@ -17,7 +16,6 @@ struct WantToWatchView: View {
     var body: some View {
         ZStack {
             VStack(alignment: .center, spacing: 0) {
-                
                 Color(colorScheme == .light ? .lightMode : .darkMode)
                     .frame(height: Constants.screenHeight * 0.04)
                 
@@ -68,7 +66,6 @@ struct WantToWatchView: View {
                     }
                 }
             )
-            
             if showPopView {
                 PopView(media: media!, showPopView: $showPopView)
             }
@@ -80,7 +77,6 @@ struct WantToWatchView: View {
 }
 
 struct WantItemView: View {
-    
     @Environment(\.colorScheme) private var colorScheme
     
     let media: Media

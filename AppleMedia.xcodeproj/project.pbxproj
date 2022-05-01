@@ -15,7 +15,7 @@
 		7B1D63E8256BDEF600D826A0 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1D63E7256BDEF600D826A0 /* String+Extension.swift */; };
 		7B1D63EB256BE09C00D826A0 /* TrailerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1D63EA256BE09C00D826A0 /* TrailerView.swift */; };
 		7B1D63EF256BEE3F00D826A0 /* Placeholder.mov in Resources */ = {isa = PBXBuildFile; fileRef = 7B1D63EE256BEE3F00D826A0 /* Placeholder.mov */; };
-		7B1D63F6256BFFC900D826A0 /* StaticSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1D63F5256BFFC900D826A0 /* StaticSearchView.swift */; };
+		7B1D63F6256BFFC900D826A0 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1D63F5256BFFC900D826A0 /* SearchView.swift */; };
 		7B1D63FC256C092F00D826A0 /* SortingType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1D63FB256C092F00D826A0 /* SortingType.swift */; };
 		7B1EF4DE256AAC83003C45BF /* AppleMediaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1EF4DD256AAC83003C45BF /* AppleMediaApp.swift */; };
 		7B1EF4E0256AAC83003C45BF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1EF4DF256AAC83003C45BF /* ContentView.swift */; };
@@ -33,7 +33,6 @@
 		7B36D69E2573C54D0049CECE /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36D69D2573C54D0049CECE /* SettingsModel.swift */; };
 		7B38F2BB256D1036004BAEF9 /* WantToWatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B38F2BA256D1036004BAEF9 /* WantToWatchView.swift */; };
 		7B38F2C2256D144B004BAEF9 /* UserPersonal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B38F2C1256D144B004BAEF9 /* UserPersonal.swift */; };
-		7B3FA3F325934E8F0087B86D /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3FA3F225934E8F0087B86D /* UIImage+Extension.swift */; };
 		7B46EAA325AC3C2400AEACE0 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7B46EAA225AC3C2400AEACE0 /* .gitignore */; };
 		7B647204256E66AF00C43E4E /* WantToWatchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B647203256E66AF00C43E4E /* WantToWatchButton.swift */; };
 		7B73D29D2584FF2800CED36B /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B73D29C2584FF2800CED36B /* UIColor+Extension.swift */; };
@@ -60,7 +59,7 @@
 		7B1D63E7256BDEF600D826A0 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		7B1D63EA256BE09C00D826A0 /* TrailerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerView.swift; sourceTree = "<group>"; };
 		7B1D63EE256BEE3F00D826A0 /* Placeholder.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = Placeholder.mov; sourceTree = "<group>"; };
-		7B1D63F5256BFFC900D826A0 /* StaticSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticSearchView.swift; sourceTree = "<group>"; };
+		7B1D63F5256BFFC900D826A0 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		7B1D63FB256C092F00D826A0 /* SortingType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingType.swift; sourceTree = "<group>"; };
 		7B1EF4DA256AAC83003C45BF /* AppleMedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppleMedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B1EF4DD256AAC83003C45BF /* AppleMediaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleMediaApp.swift; sourceTree = "<group>"; };
@@ -80,7 +79,6 @@
 		7B36D69D2573C54D0049CECE /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		7B38F2BA256D1036004BAEF9 /* WantToWatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WantToWatchView.swift; sourceTree = "<group>"; };
 		7B38F2C1256D144B004BAEF9 /* UserPersonal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPersonal.swift; sourceTree = "<group>"; };
-		7B3FA3F225934E8F0087B86D /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		7B46EAA225AC3C2400AEACE0 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		7B647203256E66AF00C43E4E /* WantToWatchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WantToWatchButton.swift; sourceTree = "<group>"; };
 		7B73D29C2584FF2800CED36B /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -117,7 +115,6 @@
 				7B8EA1EB2593959D0097D31F /* URLSession+Extension.swift */,
 				7B73D29C2584FF2800CED36B /* UIColor+Extension.swift */,
 				7BC2DDFC258C831E00669243 /* Int+Extension.swift */,
-				7B3FA3F225934E8F0087B86D /* UIImage+Extension.swift */,
 				7B8EA1D5259363FD0097D31F /* View+Extension.swift */,
 			);
 			path = Utils;
@@ -147,10 +144,7 @@
 				7B1EF4F6256ABBE1003C45BF /* Models */,
 				7B1EF4F8256ABBF1003C45BF /* Navigation */,
 				7BCCDEB8259481490056EB3E /* UserPersonal */,
-				7BC2DDF8258C81D100669243 /* TopMedia */,
-				7BC2DDFA258C822700669243 /* DetailMedia */,
-				7BC2DDF9258C820C00669243 /* GlobalSearch */,
-				7B1EF4F7256ABBEB003C45BF /* WebImage */,
+				FE8C320E280215E00073D409 /* Scenes */,
 				7B38F2C4256D213F004BAEF9 /* Styles */,
 				7B1D63E6256BDEDA00D826A0 /* Utils */,
 				7BD6081A2577969A006ECF38 /* Errors+Warnings */,
@@ -223,7 +217,7 @@
 			children = (
 				7B1D63E3256BDEB900D826A0 /* ParallaxView.swift */,
 				7BBCE3C5256D029700CE75D8 /* ResizableButtonStyle.swift */,
-				7B1D63F5256BFFC900D826A0 /* StaticSearchView.swift */,
+				7B1D63F5256BFFC900D826A0 /* SearchView.swift */,
 				7B9809C92594C120001AF9C5 /* DynamicSearchView.swift */,
 			);
 			path = Styles;
@@ -277,6 +271,17 @@
 				7BD6081E2577A165006ECF38 /* Errors.swift */,
 			);
 			path = "Errors+Warnings";
+			sourceTree = "<group>";
+		};
+		FE8C320E280215E00073D409 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				7BC2DDF8258C81D100669243 /* TopMedia */,
+				7BC2DDFA258C822700669243 /* DetailMedia */,
+				7BC2DDF9258C820C00669243 /* GlobalSearch */,
+				7B1EF4F7256ABBEB003C45BF /* WebImage */,
+			);
+			path = Scenes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -362,7 +367,7 @@
 				7B1D63E4256BDEB900D826A0 /* ParallaxView.swift in Sources */,
 				7BF048142576504A004670BB /* GlobalSearchViewModel.swift in Sources */,
 				7B1EF4DE256AAC83003C45BF /* AppleMediaApp.swift in Sources */,
-				7B1D63F6256BFFC900D826A0 /* StaticSearchView.swift in Sources */,
+				7B1D63F6256BFFC900D826A0 /* SearchView.swift in Sources */,
 				7B1D63E8256BDEF600D826A0 /* String+Extension.swift in Sources */,
 				7B1EF517256AC72C003C45BF /* ImageLoader.swift in Sources */,
 				7B38F2BB256D1036004BAEF9 /* WantToWatchView.swift in Sources */,
@@ -384,7 +389,6 @@
 				7B1D63FC256C092F00D826A0 /* SortingType.swift in Sources */,
 				7B36D69E2573C54D0049CECE /* SettingsModel.swift in Sources */,
 				7B1D63E0256BAF6100D826A0 /* DetailViewModel.swift in Sources */,
-				7B3FA3F325934E8F0087B86D /* UIImage+Extension.swift in Sources */,
 				7BD6081C257796CF006ECF38 /* Presenter.swift in Sources */,
 				7BF0481125764512004670BB /* GlobalSearchView.swift in Sources */,
 				7B81280E2576858800C842E2 /* MainGridTopView.swift in Sources */,
@@ -445,7 +449,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -500,7 +504,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -520,7 +524,7 @@
 				DEVELOPMENT_TEAM = CWB64V8YJA;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = AppleMedia/Support/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -542,7 +546,7 @@
 				DEVELOPMENT_TEAM = CWB64V8YJA;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = AppleMedia/Support/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

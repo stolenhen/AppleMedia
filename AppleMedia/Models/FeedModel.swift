@@ -7,23 +7,6 @@
 
 import Foundation
 
-struct Root: Codable {
-    let feed: FeedModel
-}
-
-struct FeedModel: Codable {
-    let id: String?
-    let country: String?
-    let icon: String?
-    let results: [DetailModel]
-}
-
-struct GenreModel: Codable, Identifiable, Hashable {
-    let genreId: String
-    let name: String
-    var id: String { genreId }
-}
-
 struct RootDetail: Decodable {
     let results: [DetailModel]
 }
@@ -31,7 +14,6 @@ struct RootDetail: Decodable {
 struct DetailModel: Codable {
     let id: String?
     let name: String?
-    let genres: [GenreModel]?
     let currency: String?
     let country: String?
     let trackId: Int?

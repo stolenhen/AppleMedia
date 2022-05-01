@@ -8,13 +8,11 @@
 import Foundation
 
 enum AppleMediaErrors: Error {
-    
     case emptyDetailData(country: String)
     case urlErrors(description: String)
     case noInternetConnection
   
     var localizedDescription: String {
-        
         switch self {
         case let .emptyDetailData(country): return
             """

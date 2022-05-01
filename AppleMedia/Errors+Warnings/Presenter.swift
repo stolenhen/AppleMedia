@@ -8,10 +8,9 @@
 import SwiftUI
 
 enum Presenter: Identifiable {
+    case alert(_ type: AlertType)
     
     var id: String { UUID().uuidString }
-    
-    case alert(_ type: AlertType)
     
     enum AlertType {
         case error(description: AppleMediaErrors)
@@ -25,11 +24,8 @@ struct AlertPresenter: ViewModifier {
     @Binding var presenter: Presenter?
     
     func body(content: Content) -> some View {
-        
         switch presenter {
-        
         case let .alert(.error(description)):
-            
             return
                 content.alert(item: $presenter)  {_ in
                     Alert(

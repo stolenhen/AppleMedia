@@ -8,30 +8,23 @@
 import SwiftUI
 
 struct DetailView: View {
-    
     @EnvironmentObject private var userPersonal: UserPersonal
-    @Environment(\.presentationMode) private var presentation
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @StateObject private var viewModel = DetailViewModel()
     
     let mediaId: String
     
     var body: some View {
-        
         ZStack {
             if viewModel.detailResults.count > 0 {
                 ScrollView(.vertical, showsIndicators: false) {
                     ForEach(viewModel.detailResults) { media in
-                        
                         ParallaxView(imagePath: media.posterPath)
-                            .onTapGesture { presentation.wrappedValue.dismiss() }
-                        
+                            .onTapGesture { dismiss() }
                         VStack(alignment: .center, spacing: 0) {
-                            
                             TopView(media: media).frame(height: 100)
-                            
                             ButtonsView(media: media)
-                            
                             InfoView(media: media).padding(.horizontal)
                             
                             if !viewModel.hasCollection {
@@ -61,7 +54,7 @@ struct DetailView: View {
             else {
                 VStack(spacing: 5) {
                     ProgressView()
-                    Button(action: { presentation.wrappedValue.dismiss() }) {
+                    Button(action: { dismiss() }) {
                         Text("Cacnel").foregroundColor(.secondary)
                     }
                 }

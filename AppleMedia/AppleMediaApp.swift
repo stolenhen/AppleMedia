@@ -9,9 +9,7 @@ import SwiftUI
 
 @main
 struct AppleMediaApp: App {
-    
-    @StateObject
-    private var userPersonal = UserPersonal()
+    @StateObject private var userPersonal = UserPersonal()
     @AppStorage("darkMode") private var darkMode = false
     
     var body: some Scene {

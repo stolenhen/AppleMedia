@@ -8,9 +8,5 @@
 import Foundation
 
 extension Int {
-    
-    var toMb: Int {
-        let number = self
-        return number * 1024 * 1024
-    }
+    var toMb: Int { self * 1024 * 1024 }
 }

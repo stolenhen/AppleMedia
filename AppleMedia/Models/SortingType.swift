@@ -8,14 +8,15 @@
 import Foundation
 
 enum SortingType: Equatable {
+    case noSorting
     case search(searchTerm: String)
     case filter(iD: String)
 }
 
 enum StorageSortingType: String, Identifiable, CaseIterable {
-    var id: String { rawValue }
-    
     case name
     case date = "release date" 
     case genre
+    
+    var id: String { rawValue }
 }

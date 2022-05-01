@@ -87,11 +87,8 @@ extension UserPersonal {
     private func storeCountry(_ country: String) {
         do {
             let encoded = try JSONEncoder().encode(country)
-            storage.set(encoded,
-                        forKey:
-                            MediaKeys.country.rawValue)
-        }
-        catch let error as NSError {
+            storage.set(encoded, forKey: MediaKeys.country.rawValue)
+        } catch {
             print(error.localizedDescription)
         }
     }
@@ -164,30 +161,24 @@ extension UserPersonal {
         do {
             let encoded = try PropertyListEncoder().encode(wantToWatch)
             storage.setValue(encoded, forKey: MediaKeys.storage.rawValue)
-        }
-        catch let error as NSError {
+        } catch {
             print(error.localizedDescription)
         }
     }
     
     private func getMedia() -> [Media] {
-        
-        guard
-            let data = storage.data(forKey: MediaKeys.storage.rawValue)
-        else {
+        guard let data = storage.data(forKey: MediaKeys.storage.rawValue) else {
             return []
         }
-        
-        var medias: [Media]?
+        var medias: [Media] = []
         
         do {
-            let decoded = try PropertyListDecoder().decode([Media].self, from: data)
-            medias = decoded
-        }
-        catch let error as NSError {
+            medias = try PropertyListDecoder().decode([Media].self, from: data)
+        } catch {
             print(error.localizedDescription)
         }
-        return medias ?? []
+        
+        return medias
     }
 }
 

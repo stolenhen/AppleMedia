@@ -10,52 +10,49 @@ import Combine
 
 final class DetailViewModel: ObservableObject {
     
-    // MARK: - Properties
+    // MARK: - Publishers
     
     @Published var defaultCountry = false
     @Published var toDetail: ToDetail? = nil
+    @Published private(set) var detailResults: [Media] = []
     
-    @Published
-    private(set) var detailResults: [Media] = []
+    // MARK: - Properties
+    
     private(set) var collections: [Media] = []
-    
     private let networkService: NetworkServiceProtocol
-    private var anyCancellable = Set<AnyCancellable>()
+    private var anyCancellable: Set<AnyCancellable> = []
 
     var hasCollection: Bool { collections.count >= 1 }
     
     // MARK: - Init
     
-    init(networkService: NetworkService = NetworkService()) {
+    init(networkService: NetworkService = .init()) {
         self.networkService = networkService
     }
     
     // MARK: - Functions
     
     func fetchDetail(mediaId: String, country: String) {
-       
         networkService.fetch(endpoint: .getInfo(by: .detail(id: mediaId, country: country)))
-            .map { $0 as RootDetail? }
+            .compactMap { $0 as RootDetail? }
             .sink(
                 receiveCompletion: {
                     switch $0 { 
                     case .finished: break
                     case let .failure(error): print(error.localizedDescription)
-                    } },
-                receiveValue: { [self] in
-                    guard
-                        let root = $0, !root.results.isEmpty
-                    else {
-                        defaultCountry.toggle()
+                    }
+                },
+                receiveValue: { [weak self] in
+                    guard !$0.results.isEmpty else {
+                        self?.defaultCountry.toggle()
                         return
                     }
-                    setupCollection(result: root.results.map(Media.init)) })
+                    self?.setupCollection(result: $0.results.map(Media.init)) })
             .store(in: &anyCancellable)
     }
 }
 
 extension DetailViewModel {
-    
     private func setupCollection(result: [Media]) {
         var resultForCorrectiong = result
         collections = Array(resultForCorrectiong.dropFirst())
@@ -68,7 +65,6 @@ extension DetailViewModel {
 // MARK: - DetailModel wrapper
 
 struct Media: Identifiable, Codable {
-    
     let detailResult: DetailModel
     
     var posterPath:  String { detailResult.artworkUrl100 ?? "" }
@@ -82,7 +78,6 @@ struct Media: Identifiable, Codable {
     var movieCount:  String { String(detailResult.trackCount ?? 0) }
     
     var collectionPrice: String { String(detailResult.collectionHdPrice ?? 0) }
-    var genre: [GenreModel] { detailResult.genres ?? [] }
     
     var name: String {
         detailResult.name
@@ -121,7 +116,6 @@ struct Media: Identifiable, Codable {
 }
 
 extension Media: Equatable, Hashable {
-    
     static func == (lhs: Media, rhs: Media) -> Bool {
         lhs.id == rhs.id
     }

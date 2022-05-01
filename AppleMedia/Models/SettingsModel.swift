@@ -8,18 +8,18 @@
 import Foundation
 
 struct SettingsModel: Identifiable {
-    var id: String { UUID().uuidString }
-    
     let nightShift: Bool
     let country: String
+    
+    var id: String { country }
 }
 
 struct SettingItem: Identifiable {
-    var id: String { title }
-    
     let title: String
     let icon: String
     let type: SettingsType
+    
+    var id: String { title }
 }
 
 enum SettingsType {

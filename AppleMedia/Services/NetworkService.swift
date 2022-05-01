@@ -4,6 +4,7 @@
 //
 //  Created by stolenhen on 22.11.2020.
 //
+
 import Foundation
 import Combine
 
@@ -19,33 +20,25 @@ struct Endpoint {
 }
 
 protocol NetworkServiceProtocol {
-    func fetch<T: Decodable>(endpoint: Endpoint) -> AnyPublisher<T?, AppleMediaErrors>
+    func fetch<T: Decodable>(endpoint: Endpoint) -> AnyPublisher<T, AppleMediaErrors>
 }
 
 final class NetworkService: NetworkServiceProtocol {
-
-    func fetch<T: Decodable>(endpoint: Endpoint) -> AnyPublisher<T?, AppleMediaErrors> {
-        guard
-            let url = endpoint.url else {
-            return
-                Fail(error: AppleMediaErrors.urlErrors(description: "Invalid URL"))
-                .eraseToAnyPublisher()}
-        return
-            URLSession
-            .shared
-            .appleMediaPublisher(for: url)
+    func fetch<T: Decodable>(endpoint: Endpoint) -> AnyPublisher<T, AppleMediaErrors> {
+        guard let url = endpoint.url else {
+            return Fail(error: AppleMediaErrors.urlErrors(description: "Invalid URL"))
+                .eraseToAnyPublisher()
+        }
+        return URLSession.session.appleMediaPublisher(for: url)
     }
 }
 
 extension Endpoint {
-    
     static func getInfo(by responseType: ResponseType) -> Endpoint {
-       
         switch responseType {
         case let .feed(country):
             return Endpoint(path: "/api/v1/\(country)/movies/top-movies/all/200/explicit.json",
                                      queryItems: [])
-            
         case let .detail(id, country):
             return Endpoint(path: "/lookup",
                                      queryItems: [ URLQueryItem(name: "entity", value: "movie"),

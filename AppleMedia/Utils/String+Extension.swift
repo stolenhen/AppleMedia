@@ -8,18 +8,13 @@
 import Foundation
 
 extension String {
-    
     func resizedPath(size: Int) -> String {
-        let string = self
-        let resize = string
-            .replacingOccurrences(of: "100x100", with: "\(size)x\(size)")
-        return resize
+        replacingOccurrences(of: "100x100", with: "\(size)x\(size)")
     }
     
     var getCountryName: String {
-        let code = self
-        return NSLocale(localeIdentifier: NSLocale.current.identifier)
-            .displayName(forKey: .countryCode, value: code) ?? "Unknown Country" }
+        NSLocale(localeIdentifier: NSLocale.current.identifier)
+            .displayName(forKey: .countryCode, value: self) ?? "Unknown Country" }
     
     var getCountryFlag: String {
         let code = self

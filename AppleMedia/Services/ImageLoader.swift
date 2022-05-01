@@ -5,95 +5,43 @@
 //  Created by stolenhen on 16.12.2020.
 //
 
-import UIKit.UIImage
+import UIKit
 import Combine
 
-typealias ImageLoaderResponse = AnyPublisher<UIImage?, Never>
-
 protocol ImageLoaderProtocol {
-    func fetchData(from path: String?) -> ImageLoaderResponse
+    func fetchImage(from path: String) async throws -> UIImage?
 }
 
 final class ImageLoader: ImageLoaderProtocol {
- 
-    private static let cache = ImageCache()
+    private let session: URLSession
+    private var cache: URLCache? {
+        session.configuration.urlCache
+    }
     
-    func fetchData(from path: String?) -> ImageLoaderResponse {
+    init(session: URLSession = .session) {
+        self.session = session
+    }
+    
+    func fetchImage(from path: String) async throws -> UIImage? {
+        guard let url = URL(string: path) else { return nil }
+        let request = URLRequest(url: url)
         
-        guard
-            let path  = path,
-            let url   = URL(string: path)
-        else {
-            return
-                Just(nil)
-                .eraseToAnyPublisher() }
-        if
-            let image = ImageLoader.cache[path] {
-            return
-                Just(image)
-                .subscribe(on: DispatchQueue.global(qos: .userInteractive))
-                .receive(on: DispatchQueue.main)
-                .eraseToAnyPublisher()
+        guard let data = cache?.cachedResponse(for: request)?.data, let image = UIImage(data: data) else {
+            return try await loadAndCacheImage(with: request)
         }
-        return
-            URLSession
-            .shared
-            .dataTaskPublisher(for: url)
-            .subscribe(on: DispatchQueue.global(qos: .utility))
-            .map(\.data)
-            .map(UIImage.init)
-            .handleEvents(receiveOutput: {
-                guard let image = $0 else { return }
-                ImageLoader.cache[path] = image
-            })
-            .catch { _ in Just(nil) }
-            .receive(on: DispatchQueue.main)
-            .eraseToAnyPublisher()
+        
+        return image
+    }
+    
+    private func loadAndCacheImage(with request: URLRequest) async throws -> UIImage? {
+        do {
+            let (data, response) = try await session.data(for: request)
+            guard let response = response as? HTTPURLResponse, 200...300 ~= response.statusCode else { return nil }
+            let cachedData = CachedURLResponse(response: response, data: data)
+            cache?.storeCachedResponse(cachedData, for: request)
+            return UIImage(data: data)
+        } catch {
+            throw error
+        }
     }
 }
-
-// MARK: - Cache
-
-final class ImageCache {
-    
-    private lazy var cache: NSCache<NSString, UIImage> = {
-        let cache = NSCache<NSString, UIImage>()
-        cache.totalCostLimit = 100.toMb
-        return cache
-    }()
-    
-    private lazy var decodedCache: NSCache<NSString, UIImage> = {
-        let cache = NSCache<NSString, UIImage>()
-        cache.totalCostLimit = 100.toMb
-        return cache
-    }()
-    
-    private func getImage(for key: String) -> UIImage? {
-        
-        if
-            let decoded = decodedCache.object(forKey: key as NSString) {
-            return decoded
-        }
-        
-        if
-            let image = cache.object(forKey: key as NSString) {
-            let decodedImage = image.decodedImage
-            decodedCache.setObject(decodedImage, forKey: key as NSString)
-            return decodedImage
-        }
-        return nil
-    }
-    
-    private func setImage(_ image: UIImage?, for key: String) {
-        guard let image = image else { return }
-        let decodedImage = image.decodedImage
-        cache.setObject(image, forKey: key as NSString)
-        decodedCache.setObject(decodedImage, forKey: key as NSString)
-    }
-    
-    subscript(_ key: String) -> UIImage? {
-        get { getImage(for: key) }
-        set { setImage(newValue, for: key) }
-    }
-}
-

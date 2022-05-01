@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SettingsView: View {
-    
     @EnvironmentObject private var userPersonal: UserPersonal
     @Environment(\.colorScheme) private var colorScheme
     

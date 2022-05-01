@@ -8,6 +8,6 @@
 import Foundation
 
 struct ToDetail: Identifiable {
-    var id:   String
+    var id: String
     let view: DetailView
 }

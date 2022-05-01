@@ -8,13 +8,10 @@
 import SwiftUI
 
 struct TabNavigation: View {
-    
-    @Environment(\.colorScheme) var colorScheme
-    
+    @Environment(\.colorScheme) private var colorScheme
     @State private var selection: Tab = .topMovies
     
     var body: some View {
-        
         TabView(selection: $selection) {
             MainGridView()
                 .tabItem { Label(Tab.topMovies.tabName,

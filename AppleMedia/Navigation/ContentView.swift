@@ -8,12 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-
-    @StateObject
-    private var userPersonal: UserPersonal = UserPersonal()
+    @StateObject private var userPersonal = UserPersonal()
     
     var body: some View {
-       
         TabNavigation()
             .environmentObject(userPersonal)
     }

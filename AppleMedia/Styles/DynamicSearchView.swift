@@ -8,14 +8,12 @@
 import SwiftUI
 
 struct DynamicSearchView: View {
-    
     @Environment(\.colorScheme) private var colorScheme
     @Binding var expand: Bool
     @Binding var searchTerm: String
     let title: String
     
     var body: some View {
-        
         HStack(alignment: .firstTextBaseline) {
             HStack {
                 Image(systemName: "magnifyingglass.circle")
