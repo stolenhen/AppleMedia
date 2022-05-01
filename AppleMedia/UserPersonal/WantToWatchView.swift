@@ -28,9 +28,7 @@ struct WantToWatchView: View {
                 .pickerStyle(SegmentedPickerStyle())
                 .padding(10)
                 .background(Color(colorScheme == .dark ? .darkMode : .lightMode))
-                
                 Divider()
-                
                 ScrollView(showsIndicators: false) {
                     ForEach(userPersonal.wantToWatch) { media in
                         WantItemView(media: media)
