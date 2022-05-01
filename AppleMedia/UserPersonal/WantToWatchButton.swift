@@ -9,7 +9,6 @@ import SwiftUI
 
 struct WantToWatchButton: View {
     @EnvironmentObject private var userPersonal: UserPersonal
-    
     var media: Media?
     
     private var isWanted: Bool {
