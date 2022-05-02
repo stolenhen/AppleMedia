@@ -5,7 +5,8 @@
 //  Created by stolenhen on 22.11.2020.
 //
 
-import UIKit.UIImage
+import UIKit
+import Networking
 
 @MainActor
 final class WebImageViewModel: ObservableObject {

@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import Networking
 
 enum Presenter: Identifiable {
     case alert(_ type: AlertType)
     var id: String { UUID().uuidString }
     
     enum AlertType {
-        case error(description: AppleMediaErrors)
+        case error(description: NetworkError)
         case warning(message: String)
         case warningWithAction(message: String, action: (() -> Void))
     }

@@ -8,21 +8,21 @@
 import UIKit
 import Combine
 
-protocol ImageLoaderProtocol {
+public protocol ImageLoaderProtocol {
     func fetchImage(from path: String) async throws -> UIImage?
 }
 
-final class ImageLoader: ImageLoaderProtocol {
+public final class ImageLoader: ImageLoaderProtocol {
     private let session: URLSession
     private var cache: URLCache? {
         session.configuration.urlCache
     }
     
-    init(session: URLSession = .session) {
+    public init(session: URLSession = .session) {
         self.session = session
     }
     
-    func fetchImage(from path: String) async throws -> UIImage? {
+    public func fetchImage(from path: String) async throws -> UIImage? {
         guard let url = URL(string: path) else { return nil }
         let request = URLRequest(url: url)
         
@@ -32,8 +32,10 @@ final class ImageLoader: ImageLoaderProtocol {
         
         return image
     }
-    
-    private func loadAndCacheImage(with request: URLRequest) async throws -> UIImage? {
+}
+
+private extension ImageLoader {
+    func loadAndCacheImage(with request: URLRequest) async throws -> UIImage? {
         do {
             let (data, response) = try await session.data(for: request)
             guard let response = response as? HTTPURLResponse, 200...300 ~= response.statusCode else { return nil }

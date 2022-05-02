@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import Networking
 
 final class GlobalSearchViewModel: ObservableObject {
     // MARK: - Properties
@@ -66,7 +67,7 @@ private extension GlobalSearchViewModel {
             .assign(to: &$nothingFound)
     }
     
-    func search(searchQuery: String) -> AnyPublisher<[DetailModel], AppleMediaErrors> {
+    func search(searchQuery: String) -> AnyPublisher<[DetailModel], NetworkError> {
         networkService.fetch(endpoint: .getInfo(by: .search(mediaName: searchQuery, country: "US")))
             .compactMap { $0 as RootDetail? }
             .map(\.results)

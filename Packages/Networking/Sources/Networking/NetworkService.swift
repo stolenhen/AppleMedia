@@ -8,32 +8,35 @@
 import Foundation
 import Combine
 
-enum ResponseType {
+public enum ResponseType {
     case feed(country: String)
     case detail(id: String, country: String)
     case search(mediaName: String, country: String)
 }
 
-struct Endpoint {
+public struct Endpoint {
     let path: String
     let queryItems: [URLQueryItem]
 }
 
-protocol NetworkServiceProtocol {
-    func fetch<T: Decodable>(endpoint: Endpoint) -> AnyPublisher<T, AppleMediaErrors>
+public protocol NetworkServiceProtocol {
+    func fetch<T: Decodable>(endpoint: Endpoint) -> AnyPublisher<T, NetworkError>
 }
 
-final class NetworkService: NetworkServiceProtocol {
-    func fetch<T: Decodable>(endpoint: Endpoint) -> AnyPublisher<T, AppleMediaErrors> {
+public final class NetworkService: NetworkServiceProtocol {
+    
+    public init() {}
+    
+    public func fetch<T: Decodable>(endpoint: Endpoint) -> AnyPublisher<T, NetworkError> {
         guard let url = endpoint.url else {
-            return Fail(error: AppleMediaErrors.urlErrors(description: "Invalid URL"))
+            return Fail(error: NetworkError.urlErrors(description: "Invalid URL"))
                 .eraseToAnyPublisher()
         }
         return URLSession.session.appleMediaPublisher(for: url)
     }
 }
 
-extension Endpoint {
+public extension Endpoint {
     static func getInfo(by responseType: ResponseType) -> Endpoint {
         switch responseType {
         case let .feed(country):

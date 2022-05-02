@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import Networking
 
 final class DetailViewModel: ObservableObject {
     
