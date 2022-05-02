@@ -44,6 +44,7 @@
 		7BF0481125764512004670BB /* GlobalSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF0481025764512004670BB /* GlobalSearchView.swift */; };
 		7BF048142576504A004670BB /* GlobalSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF048132576504A004670BB /* GlobalSearchViewModel.swift */; };
 		FE737631281FC37F0047620A /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = FE737630281FC37F0047620A /* Networking */; };
+		FE737633281FC5B20047620A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = FE737632281FC5B20047620A /* README.md */; };
 		FE8413D1281EE03A004A5794 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8413D0281EE03A004A5794 /* DateFormatter+Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +87,7 @@
 		7BD6081E2577A165006ECF38 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		7BF0481025764512004670BB /* GlobalSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchView.swift; sourceTree = "<group>"; };
 		7BF048132576504A004670BB /* GlobalSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchViewModel.swift; sourceTree = "<group>"; };
+		FE737632281FC5B20047620A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FE8413D0281EE03A004A5794 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
 		FED677CD281FC12D004E5792 /* Networking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Networking; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				7B46EAA225AC3C2400AEACE0 /* .gitignore */,
+				FE737632281FC5B20047620A /* README.md */,
 				FED677CC281FC10B004E5792 /* Packages */,
 				7B1EF4DC256AAC83003C45BF /* AppleMedia */,
 				7B1EF4DB256AAC83003C45BF /* Products */,
@@ -346,6 +349,7 @@
 			files = (
 				7B46EAA325AC3C2400AEACE0 /* .gitignore in Resources */,
 				7B1EF4E5256AAC87003C45BF /* Preview Assets.xcassets in Resources */,
+				FE737633281FC5B20047620A /* README.md in Resources */,
 				7B1D63EF256BEE3F00D826A0 /* Placeholder.mov in Resources */,
 				7B1EF4E2256AAC87003C45BF /* Assets.xcassets in Resources */,
 			);

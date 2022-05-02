@@ -10,15 +10,14 @@
 - saving all user personal data to UserDefaults
 
 ### Users can:
-- select any country to see top 200 movies in the region (with localised description, posters, trailers etc.)
 - save a movie in "WantToWatch" collection to watch it later
 - use the global search to find any movie they want
-- finally visit iTunes to buy or rent movie
+- visit iTunes to buy or rent movie
 
 ## Requirement
-- Xcode 12
-- IOS 14
+- Xcode 13
+- IOS 15
 
 ## Getting Started
 - Clone
-- Build and Run with Xcode 12
+- Build and run with Xcode 13
