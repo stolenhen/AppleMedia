@@ -41,14 +41,13 @@ struct WantToWatchView: View {
                     }
                 }
                 .padding(.horizontal, 5)
-                .onChange(of: userPersonal.wantToWatch.count) {
-                    guard $0 >= 0 else { return }
+                .onChange(of: userPersonal.wantToWatch.count) { _ in
                     userPersonal.storeMedia()
                 }
-                .onChange(of: userPersonal.sorting) {_ in
+                .onChange(of: userPersonal.sorting) { sorting in
                     guard !userPersonal.wantToWatch.isEmpty else { return }
                     withAnimation {
-                        userPersonal.sorted()
+                        userPersonal.sort(sorting)
                     }
                 }
             }
@@ -64,10 +63,11 @@ struct WantToWatchView: View {
                     }
                 }
             )
-            if showPopView {
-                PopView(media: media!, showPopView: $showPopView)
+            if showPopView, let media = media {
+                PopView(media: media, showPopView: $showPopView)
             }
         }
+        .onAppear(perform: userPersonal.loadMedia)
         .onDisappear {
             showPopView = false
         }
@@ -80,12 +80,9 @@ struct WantItemView: View {
     let media: Media
     
     var body: some View {
-        
         ZStack(alignment: .trailing) {
-            
             WebImageView(imagePath: media.posterPath.resizedPath(size: 500))
                 .aspectRatio(contentMode: .fill)
-            
             VStack {
                 HStack(alignment: .center) {
                     Text(media.name)
@@ -114,28 +111,26 @@ struct WantItemView: View {
 }
 
 struct PopView: View {
+    @Environment(\.colorScheme) private var colorScheme
     
     let media: Media
-    
-    @Environment(\.colorScheme) private var colorScheme
+   
     @Binding var showPopView: Bool
     
     var body: some View {
-        
         VStack(alignment: .center, spacing: 10) {
-            
             WebImageView(imagePath: media.posterPath.resizedPath(size: 400))
                 .aspectRatio(contentMode: .fill)
-                .frame(width: Constants.screenWidth * 0.4,
-                       height: Constants.screenHeight * 0.3)
+                .frame(width: Constants.screenWidth * 0.4, height: Constants.screenHeight * 0.3)
                 .cornerRadius(10)
-                .shadow(color:
-                            Color(colorScheme == .light ? .black : .white)
-                            .opacity(0.5),
-                        radius: 10)
+                .shadow(
+                    color: Color(colorScheme == .light ? .black : .white).opacity(0.5),
+                    radius: 10
+                )
                 .padding()
-                .onTapGesture { showPopView.toggle() }
-            
+                .onTapGesture {
+                    showPopView.toggle()
+                }
             HStack {
                 VStack(alignment: .leading, spacing: 5) {
                     Text(media.name)
@@ -146,28 +141,25 @@ struct PopView: View {
                         .foregroundColor(.secondary)
                 }
                 .padding(.horizontal)
-                
                 Spacer()
                 WantToWatchButton(media: media)
             }
-            
             Divider()
                 .padding(.horizontal)
-            
             ScrollView(.vertical, showsIndicators: false) {
-                
                 Text(media.description)
                     .font(.system(size: 12))
                     .foregroundColor(.secondary)
                     .padding([.horizontal, .bottom])
             }
         }
-        .frame(width: Constants.screenWidth * 0.8,
-               height: Constants.screenHeight * 0.7)
-        .background(Image("wall")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .opacity(0.15))
+        .frame(width: Constants.screenWidth * 0.8, height: Constants.screenHeight * 0.7)
+        .background(
+            Image("wall")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .opacity(0.15)
+        )
         .background(Color(colorScheme == .dark ? .darkMode : .lightMode))
         .cornerRadius(20)
     }

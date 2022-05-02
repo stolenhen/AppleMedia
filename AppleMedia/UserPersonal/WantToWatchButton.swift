@@ -13,13 +13,14 @@ struct WantToWatchButton: View {
     
     var body: some View {
         Button(action: wantToWatch) {
-            HStack(spacing: -10) {
+            HStack(spacing: 5) {
                 Image(systemName: isWanted ? "heart.fill" : "heart")
                     .font(.system(size: 24, weight: .light))
                     .foregroundColor(Color(.systemPink))
                 Text("Want \nto watch")
                     .font(.system(size: 10))
-                    .frame(width: 68, alignment: .center)
+                    .multilineTextAlignment(.leading)
+                    .frame(width: 68, alignment: .leading)
                     .foregroundColor(Color(.secondaryLabel))
             }
         }

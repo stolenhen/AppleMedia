@@ -24,7 +24,7 @@ final class UserPersonal: ObservableObject {
     
     // MARK: - Publishers
     
-    @Published private(set) var wantToWatch = [Media]()
+    @Published private(set) var wantToWatch: [Media] = []
     @Published private(set) var countryName = "US"
     @Published private(set) var isConnected = true
     
@@ -35,7 +35,6 @@ final class UserPersonal: ObservableObject {
     //MARK: - Init
     
     init() {
-        wantToWatch = getMedia()
         checkConnection()
     }
 }
@@ -43,18 +42,29 @@ final class UserPersonal: ObservableObject {
 // MARK: - Settings
 
 extension UserPersonal {
+    func loadMedia() {
+        guard let data = storage.data(forKey: MediaKeys.storage.rawValue) else {
+            return
+        }
+        
+        do {
+            wantToWatch = try PropertyListDecoder().decode([Media].self, from: data)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
     func tapped(on: SettingItem) {
         switch on.type {
         case .mode: darkMode.toggle()
         case .cleanStorage:
-            if !wantToWatch.isEmpty {
-                presenter = .alert(
-                    .warningWithAction(message: "Are you sure you want to permanently erase the medias in the Storage?") { [ weak self ] in
-                        self?.wantToWatch.removeAll()
-                        self?.presenter = .alert(.warning(message: "Done!\n Your Storage is empty") )
-                    }
-                )
-            } 
+            guard !wantToWatch.isEmpty else { return }
+            presenter = .alert(
+                .warningWithAction(message: "Are you sure you want to permanently erase the medias in the storage?") { [ weak self ] in
+                    self?.wantToWatch.removeAll()
+                    self?.presenter = .alert(.warning(message: "Done!\n Your Storage is empty") )
+                }
+            )
         }
     }
 }
@@ -67,21 +77,26 @@ extension UserPersonal {
     }
     
     func wantToWatchIt(_ media: Media) {
-        if wantToWatch.contains(media) {
-            for mediaInArray in wantToWatch where mediaInArray.id == media.id {
-                deleteMedia(media)
-                break
-            }
-        } else {
+        guard wantToWatch.contains(media) else {
             wantToWatch.append(media)
+            return
         }
+        
+        guard let media = wantToWatch.first(where: { $0.id == media.id }) else {
+            return
+        }
+        
+        deleteMedia(media)
     }
     
-    func sorted() {
+    func sort(_ sorting: StorageSortingType) {
         switch sorting {
-        case .name:  wantToWatch = wantToWatch.sorted(by: { $0.name < $1.name })
-        case .date:  wantToWatch = wantToWatch.sorted(by: { $0.releaseDate > $1.releaseDate })
-        case .genre: wantToWatch = wantToWatch.sorted(by: { $0.genreName < $1.genreName })
+        case .name:
+            wantToWatch.sort(by: { $0.name < $1.name })
+        case .date:
+            wantToWatch.sort(by: { $0.releaseDate > $1.releaseDate })
+        case .genre:
+            wantToWatch.sort(by: { $0.genreName < $1.genreName })
         }
     }
    
@@ -100,26 +115,11 @@ private extension UserPersonal {
         case storage
     }
     
-    func getMedia() -> [Media] {
-        var medias: [Media] = []
-        
-        guard let data = storage.data(forKey: MediaKeys.storage.rawValue) else {
-            return medias
-        }
-        
-        do {
-            medias = try PropertyListDecoder().decode([Media].self, from: data)
-        } catch {
-            print(error.localizedDescription)
-        }
-        
-        return medias
-    }
-    
     func deleteMedia(_ media: Media) {
-        if let index = self.wantToWatch.firstIndex(of: media) {
-            wantToWatch.remove(at: index)
+        guard let index = self.wantToWatch.firstIndex(of: media) else {
+           return
         }
+        wantToWatch.remove(at: index)
     }
     
     func checkConnection() {
