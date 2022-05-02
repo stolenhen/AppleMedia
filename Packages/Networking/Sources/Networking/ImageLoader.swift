@@ -43,7 +43,7 @@ private extension ImageLoader {
             cache?.storeCachedResponse(cachedData, for: request)
             return UIImage(data: data)
         } catch {
-            throw error
+            throw NetworkError.imageLoadingError
         }
     }
 }

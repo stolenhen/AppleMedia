@@ -8,12 +8,14 @@
 import Foundation
 
 public enum NetworkError: Error {
+    case imageLoadingError
     case emptyDetailData(country: String)
     case urlErrors(description: String)
     case noInternetConnection
   
     var localizedDescription: String {
         switch self {
+        case .imageLoadingError: return "Image loading error"
         case let .emptyDetailData(country): return
             """
             Unfortunately at this moment Itunes
