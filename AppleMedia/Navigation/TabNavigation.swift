@@ -22,13 +22,11 @@ struct TabNavigation: View {
                     .background(Color(colorScheme == .dark ? .darkMode : .lightMode))
             }
         }
-        .accentColor(
-            colorScheme == .dark ? Color(.systemPink) : Color(.systemBlue)
-        )
+        .accentColor(colorScheme == .dark ? Color(.systemPink) : Color(.systemBlue))
     }
 }
 
-extension TabNavigation {
+private extension TabNavigation {
     enum Tab: CaseIterable, Identifiable {
         case topMovies
         case globalSearch

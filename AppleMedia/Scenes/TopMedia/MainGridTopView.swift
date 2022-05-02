@@ -21,11 +21,12 @@ struct MainGridTopView: View {
                               title: userPersonal.countryName)
                 .onReceive(viewModel.$searchTerm) { value in
                     withAnimation {
-                        viewModel.sortType =
-                            .search(searchTerm: value)
+                        viewModel.sortType = .search(searchTerm: value)
                     }
                 }
-            if userPersonal.expand { genres }
+            if userPersonal.expand {
+                genres
+            }
         }
         .padding(.horizontal, 5)
         .background(Color(colorScheme == .light ? .lightMode : .darkMode))
@@ -35,27 +36,32 @@ struct MainGridTopView: View {
 private extension MainGridTopView {
     var genres: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 10) {
+            HStack {
                 ForEach(viewModel.genresResult, id: \.self) { genre in
                     Button(action: {
-                        withAnimation { viewModel.sortType = .filter(iD: genre) }
-                    }) {
-                        VStack(spacing: 5) {
-                            Text(genre)
-                                .font(.system(size: 14, weight: .light))
-                                .padding(.vertical, 5)
-                                .padding(.horizontal, 10)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .strokeBorder(lineWidth: 1)
-                                )
+                        withAnimation {
+                            viewModel.select(genre)
                         }
-                        .padding(.bottom, 10)
+                    }) {
+                        Text(genre)
+                            .font(.system(size: 14, weight: .light))
+                            .padding(.vertical, 5)
+                            .padding(.horizontal, 10)
+                            .background(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .strokeBorder(lineWidth: 1)
+                            )
+                            .padding(.bottom, 10)
+                            .foregroundColor(isSelected(genre: genre) ? .pink : .white)
                     }
                     .buttonStyle(ResizableButtonStyle())
                 }
             }
         }
+    }
+    
+    func isSelected(genre: String) -> Bool {
+        viewModel.genresResult.first(where: { $0 == genre }) == viewModel.currentGenre
     }
 }
 

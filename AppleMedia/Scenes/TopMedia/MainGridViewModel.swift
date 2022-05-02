@@ -18,6 +18,7 @@ final class MainGridViewModel: ObservableObject {
     @Published var searchTerm = ""
     @Published var toDetail: ToDetail?
     @Published private var media: [Media] = []
+    @Published var currentGenre: String = ""
     
     // MARK: - Properties
     
@@ -45,15 +46,30 @@ final class MainGridViewModel: ObservableObject {
     init(networkService: NetworkServiceProtocol = NetworkService()) {
         self.networkService = networkService
         fetchMedia()
+        
+        $sortType
+            .map { $0 == .search(searchTerm: "") }
+            .map { _ in return "" }
+            .assign(to: &$currentGenre)
     }
     
     // MARK: - Functions
     
+    func select(_ genre: String) {
+        sortType = .filter(iD: genre)
+        if !searchTerm.isEmpty {
+            searchTerm = ""
+        }
+        currentGenre = genre
+    }
+    
     func detailWith(media: Media) {
         toDetail = .init(id: media.id, view: DetailView(mediaId: media.id))
     }
-    
-    private func fetchMedia() {
+}
+
+private extension MainGridViewModel {
+    func fetchMedia() {
         ["i", "e", "s", "a", "b", "n"].forEach { item in
             networkService
                 .fetch(endpoint: .getInfo(by: .search(mediaName: item, country: "")))

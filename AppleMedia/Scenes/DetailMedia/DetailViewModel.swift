@@ -34,12 +34,11 @@ final class DetailViewModel: ObservableObject {
     
     func fetchDetail(mediaId: String, country: String) {
         networkService.fetch(endpoint: .getInfo(by: .detail(id: mediaId, country: country)))
-            .compactMap { $0 as RootDetail? }
+            .compactMap { $0 as RootDetail }
             .sink(
                 receiveCompletion: {
-                    switch $0 { 
-                    case .finished: break
-                    case let .failure(error): print(error.localizedDescription)
+                    if case let .failure(error) = $0 {
+                        print(error.localizedDescription)
                     }
                 },
                 receiveValue: { [weak self] in
@@ -70,7 +69,7 @@ struct Media: Identifiable, Codable {
     var advisory: String { detailResult.contentAdvisoryRating ?? "Unrated" }
     var rentalPrice: String { String(detailResult.trackRentalPrice ?? 0) }
     var currency: String { (" " + (detailResult.currency ?? "No price")) }
-    var country: String { detailResult.country ?? ""}
+    var country: String { detailResult.country ?? "" }
     var movieCount: String { String(detailResult.trackCount ?? 0) }
     var collectionPrice: String { String(detailResult.collectionHdPrice ?? 0) }
     
@@ -101,8 +100,7 @@ struct Media: Identifiable, Codable {
     }
     
     var trailerLink: URL {
-        URL(string: detailResult.previewUrl ?? "")
-            ?? Bundle.main.url(forResource: "Placeholder", withExtension: "mov")!
+        URL(string: detailResult.previewUrl ?? "") ?? Bundle.main.url(forResource: "Placeholder", withExtension: "mov")!
     }
     
     var id: String {

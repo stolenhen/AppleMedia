@@ -82,7 +82,7 @@ struct WantItemView: View {
     var body: some View {
         ZStack(alignment: .trailing) {
             WebImageView(imagePath: media.posterPath.resizedPath(size: 500))
-                .aspectRatio(contentMode: .fill)
+                .scaledToFill()
             VStack {
                 HStack(alignment: .center) {
                     Text(media.name)
@@ -114,13 +114,12 @@ struct PopView: View {
     @Environment(\.colorScheme) private var colorScheme
     
     let media: Media
-   
     @Binding var showPopView: Bool
     
     var body: some View {
         VStack(alignment: .center, spacing: 10) {
             WebImageView(imagePath: media.posterPath.resizedPath(size: 400))
-                .aspectRatio(contentMode: .fill)
+                .scaledToFill()
                 .frame(width: Constants.screenWidth * 0.4, height: Constants.screenHeight * 0.3)
                 .cornerRadius(10)
                 .shadow(
