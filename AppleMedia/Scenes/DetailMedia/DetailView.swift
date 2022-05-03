@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct DetailView: View {
     @EnvironmentObject private var userPersonal: UserPersonal
@@ -27,67 +28,78 @@ struct DetailView: View {
                         VStack(alignment: .center, spacing: 0) {
                             topView(for: media)
                             buttonsView(for: media)
-                            InfoView(media: media)
-                                .padding(.horizontal)
-                            
-                            if !viewModel.hasCollection {
-                                Divider()
-                                    .padding()
-                                TrailerView(videoPath: media.trailerLink)
-                                Divider()
-                                    .padding()
-                                DescriptionView(media: media)
-                            }
-                            
-                            if viewModel.hasCollection {
-                                Divider()
-                                    .padding()
-                                DetailCollectionView(viewModel: viewModel)
-                                    .padding(.bottom, 120)
-                            }
+                            infoView(for: media)
+                            isCollectionView(for: media)
                         }
-                        .background(
-                            Color(colorScheme == .dark ? .darkMode : .lightMode)
-                                .opacity(0.93))
-                        .background(
-                            Image("wall")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .edgesIgnoringSafeArea(.all))
+                        .background(backgroundView)
                     }
                 }
-                .background(Color(colorScheme == .dark ? .darkMode : .lightMode))
+                .background(backgroundView)
             } else {
-                VStack(spacing: 5) {
-                    ProgressView()
-                    Button(action: { dismiss() }) {
-                        Text("Cacnel").foregroundColor(.secondary)
-                    }
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color(colorScheme == .dark ? .darkMode : .lightMode))
+                loadingView
             }
         }
         .onAppear {
             guard viewModel.detailResults.isEmpty else { return }
-            viewModel.fetchDetail(mediaId: mediaId, country: userPersonal.countryName.getCountryCode)
+            viewModel.fetchDetail(mediaId: mediaId, country: userPersonal.countryName)
         }
     }
 }
 
+// MARK: - Subviews
+
 private extension DetailView {
+    var loadingView: some View {
+        VStack(spacing: 5) {
+            ProgressView()
+            Button(action: { dismiss() }) {
+                Text("Cacnel")
+                    .foregroundColor(.secondary)
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(backgroundView)
+    }
+    
+    var backgroundView: some View {
+        Image("wall")
+            .resizable()
+            .edgesIgnoringSafeArea(.all)
+            .overlay(
+                Color(colorScheme == .dark ? .darkMode : .lightMode)
+                    .opacity(0.93)
+            )
+    }
+    
+    @ViewBuilder
+    func isCollectionView(for media: Media) -> some View {
+        if viewModel.hasCollection {
+            Divider()
+                .padding()
+            DetailCollectionView(viewModel: viewModel)
+                .padding(.bottom, 120)
+        } else {
+            Divider()
+                .padding()
+            trailerView(for: media)
+            Divider()
+                .padding()
+            descriptionView(for: media)
+        }
+    }
+    
     func topView(for media: Media) -> some View {
         HStack(alignment: .top) {
             WebImageView(imagePath: media.posterPath.resizedPath(size: 200))
                 .frame(width: 100, height: 150)
-                .aspectRatio(contentMode: .fill)
                 .cornerRadius(10)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color(colorScheme == .dark ? .darkMode : .lightMode), lineWidth: 4)
                         .shadow(color: .gray, radius: 2)
+                        
                 )
-                .offset(x: 0, y: -50)
+                .offset(y: -50)
                 .padding(.horizontal)
             VStack(alignment: .leading, spacing: 5) {
                 Text(media.name)
@@ -129,17 +141,11 @@ private extension DetailView {
         }
         .padding([.horizontal, .bottom])
     }
-}
 
-
-struct DescriptionView: View {
-    let media: Media
-    var body: some View {
+    func descriptionView(for media: Media) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("Description")
-                .font(.system(size: 20, weight: .light))
-                .foregroundColor(.primary)
-                .padding(.bottom, 5)
+                .detailTitle
             Text(media.description)
                 .fontWeight(.light).font(.system(size: 14))
                 .foregroundColor(.primary)
@@ -147,27 +153,19 @@ struct DescriptionView: View {
         }
         .padding(.horizontal)
     }
-}
 
-
-struct InfoView: View {
-    let media: Media
-    
-    var body: some View {
+    func infoView(for media: Media) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("Short information")
-                .font(.system(size: 20, weight: .light))
-                .foregroundColor(.primary)
-                .padding(.bottom, 5)
+                .detailTitle
             ForEach(media.shortInfo) { mediaType in
-                info(for: mediaType)
+                info(for: mediaType, media: media)
             }
         }
+        .padding(.horizontal)
     }
-}
 
-private extension InfoView {
-    func info(for type: Media.ShortInfoType) -> some View {
+    func info(for type: Media.ShortInfoType, media: Media) -> some View {
         HStack(spacing: 0) {
             Text(type.rawValue)
                 .fontWeight(.light)
@@ -178,10 +176,41 @@ private extension InfoView {
                 .font(.system(size: 14))
         }
     }
+    
+    func trailerView(for media: Media) -> some View {
+        VStack(alignment: .leading) {
+            Text("Watch trailer")
+                .detailTitle
+            VideoPlayer(player: AVPlayer(url: media.trailerLink))
+                .frame(width: Constants.screenWidth * 0.92, height: 250)
+                .cornerRadius(10)
+        }
+    }
 }
+
+// MARK: - Private extensions
+
+private struct DetailTitle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.system(size: 20, weight: .light))
+            .foregroundColor(.primary)
+            .padding(.bottom, 5)
+    }
+}
+
+private extension View {
+    var detailTitle: some View {
+        modifier(DetailTitle())
+    }
+}
+
+// MARK: - Preview
 
 struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         DetailView(mediaId: "455832983")
+            .preferredColorScheme(.dark)
+            .environmentObject(UserPersonal())
     }
 }
