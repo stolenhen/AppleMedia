@@ -18,7 +18,7 @@ struct DetailView: View {
     
     var body: some View {
         ZStack {
-            if viewModel.detailResults.count > 0 {
+            if !viewModel.isLoading {
                 ScrollView(.vertical, showsIndicators: false) {
                     ForEach(viewModel.detailResults) { media in
                         ParallaxView(imagePath: media.posterPath)
@@ -96,8 +96,7 @@ private extension DetailView {
                 .background(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color(colorScheme == .dark ? .darkMode : .lightMode), lineWidth: 4)
-                        .shadow(color: .gray, radius: 2)
-                        
+                        .shadow(color: .gray, radius: 2) 
                 )
                 .offset(y: -50)
                 .padding(.horizontal)

@@ -15,6 +15,7 @@ final class DetailViewModel: ObservableObject {
     
     @Published var toDetail: ToDetail?
     @Published private(set) var detailResults: [Media] = []
+    @Published var isLoading: Bool = false
     
     // MARK: - Properties
     
@@ -28,6 +29,9 @@ final class DetailViewModel: ObservableObject {
     
     init(networkService: NetworkService = .init()) {
         self.networkService = networkService
+        $detailResults
+            .map(\.isEmpty)
+            .assign(to: &$isLoading)
     }
     
     // MARK: - Functions
@@ -47,13 +51,13 @@ final class DetailViewModel: ObservableObject {
     }
 }
 
-extension DetailViewModel {
-    private func setupCollection(result: [Media]) {
+private extension DetailViewModel {
+    func setupCollection(result: [Media]) {
         var resultForCorrectiong = result
         collections = Array(resultForCorrectiong.dropFirst())
         detailResults = resultForCorrectiong.count == 1
-            ? resultForCorrectiong
-            : Array(arrayLiteral: resultForCorrectiong.removeFirst())
+        ? resultForCorrectiong
+        : Array(arrayLiteral: resultForCorrectiong.removeFirst())
     }
 }
 
