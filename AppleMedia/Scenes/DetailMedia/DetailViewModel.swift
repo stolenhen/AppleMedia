@@ -5,17 +5,19 @@
 //  Created by stolenhen on 23.11.2020.
 //
 
-import Foundation
 import Combine
 import Networking
+import SwiftUI
 
 final class DetailViewModel: ObservableObject {
     
     // MARK: - Publishers
     
-    @Published var toDetail: ToDetail?
     @Published private(set) var detailResults: [Media] = []
+    @Published var toDetail: ToDetail?
     @Published var isLoading: Bool = false
+    @Published var errorState: ErrorState = .init(isError: false, descriptor: nil)
+    @Published var presenter: Presenter? = nil
     
     // MARK: - Properties
     
@@ -36,28 +38,35 @@ final class DetailViewModel: ObservableObject {
     
     // MARK: - Functions
     
-    func fetchDetail(mediaId: String, country: String) {
-        networkService.fetch(endpoint: .getInfo(by: .detail(id: mediaId, country: country)))
+    func fetchDetail(mediaId: String) {
+        guard detailResults.isEmpty else { return }
+        cleanErrorState()
+        networkService.fetch(endpoint: .getInfo(by: .detail(id: mediaId)))
             .compactMap { $0 as RootDetail }
-            .sink(
-                receiveCompletion: {
-                    if case let .failure(error) = $0 {
-                        print(error.localizedDescription)
-                    }
-                },
-                receiveValue: { [weak self] in
-                    self?.setupCollection(result: $0.results.map(Media.init)) })
-            .store(in: &anyCancellable)
+            .catch(handleError)
+            .map(\.results)
+            .map { $0.map(Media.init) }
+            .assign(to: &$detailResults)
     }
 }
 
 private extension DetailViewModel {
-    func setupCollection(result: [Media]) {
-        var resultForCorrectiong = result
-        collections = Array(resultForCorrectiong.dropFirst())
-        detailResults = resultForCorrectiong.count == 1
-        ? resultForCorrectiong
-        : Array(arrayLiteral: resultForCorrectiong.removeFirst())
+    func handleError(_ error: NetworkError) -> Empty<RootDetail, Never> {
+        errorState = .init(
+            isError: true,
+            descriptor: .init(
+                title: error.errorTitle,
+                description: error.localizedDescription
+            )
+        )
+        return .init()
+    }
+    
+    func cleanErrorState() {
+        guard errorState.isError else {
+            return
+        }
+        errorState = .init(isError: false, descriptor: nil)
     }
 }
 
@@ -108,10 +117,7 @@ struct Media: Identifiable, Codable {
     }
     
     var id: String {
-        detailResult.id
-            ?? detailResult.trackId?.description
-            ?? detailResult.collectionId?.description
-            ?? UUID().uuidString
+        detailResult.id ?? detailResult.trackId?.description ?? UUID().uuidString
     }
     
     var shortInfo: [ShortInfoType] {

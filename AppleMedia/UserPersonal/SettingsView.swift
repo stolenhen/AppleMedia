@@ -22,10 +22,6 @@ struct SettingsView: View {
         }
         .modifier(AlertPresenter(presenter: $userPersonal.presenter))
         .padding([.horizontal, .bottom])
-        .onReceive(userPersonal.$isConnected) {
-            guard !$0 else { return }
-            userPersonal.presenter = .alert(.error(description: .noInternetConnection))
-        }
     }
 }
 

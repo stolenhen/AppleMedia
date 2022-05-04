@@ -5,14 +5,12 @@
 //  Created by stolenhen on 24.11.2020.
 //
 
-import Network
 import SwiftUI
 
 final class UserPersonal: ObservableObject {
     
     // MARK: - Properties
     
-    private let monitor = NWPathMonitor()
     private let storage = UserDefaults.standard
     
     @AppStorage("darkMode") private var darkMode = false
@@ -26,17 +24,10 @@ final class UserPersonal: ObservableObject {
     
     @Published private(set) var wantToWatch: [Media] = []
     @Published private(set) var countryName = "US"
-    @Published private(set) var isConnected = true
     
     @Published var expand = false
     @Published var sorting: StorageSortingType = .name
     @Published var presenter: Presenter? = .none
-
-    //MARK: - Init
-    
-    init() {
-        checkConnection()
-    }
 }
 
 // MARK: - Settings
@@ -120,14 +111,5 @@ private extension UserPersonal {
            return
         }
         wantToWatch.remove(at: index)
-    }
-    
-    func checkConnection() {
-        monitor.pathUpdateHandler = { [ weak self ] path in
-            DispatchQueue.main.async {
-                self?.isConnected = path.status == .satisfied ? true : false
-            }
-        }
-        monitor.start(queue: DispatchQueue.global(qos: .background))
     }
 }

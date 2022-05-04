@@ -13,7 +13,7 @@ enum Presenter: Identifiable {
     var id: String { UUID().uuidString }
     
     enum AlertType {
-        case error(description: NetworkError)
+        case error(descriptor: AlertDescriptor, retry: (() -> Void), cancel: (() -> Void))
         case warning(message: String)
         case warningWithAction(message: String, action: (() -> Void))
     }
@@ -25,13 +25,17 @@ struct AlertPresenter: ViewModifier {
     @ViewBuilder
     func body(content: Content) -> some View {
         switch presenter {
-        case let .alert(.error(description)):
+        case let .alert(.error(descriptor, retry, cancel)):
                 content.alert(item: $presenter)  { _ in
                     Alert(
-                        title: Text("Warning"),
-                        message: Text(description.localizedDescription),
-                        dismissButton: .destructive(Text("Ok")
-                        )
+                        title: Text(descriptor.title),
+                        message: Text(descriptor.description),
+                        primaryButton: .default(Text("Retry")) {
+                            retry()
+                        },
+                        secondaryButton: .cancel {
+                            cancel()
+                        }
                     )
                 }
         case let .alert(.warning(message)):

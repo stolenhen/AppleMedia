@@ -9,7 +9,6 @@ import SwiftUI
 import AVKit
 
 struct DetailView: View {
-    @EnvironmentObject private var userPersonal: UserPersonal
     @Environment(\.dismiss) private var dismiss
     @Environment(\.colorScheme) private var colorScheme
     @StateObject private var viewModel = DetailViewModel()
@@ -18,7 +17,9 @@ struct DetailView: View {
     
     var body: some View {
         ZStack {
-            if !viewModel.isLoading {
+            if viewModel.isLoading {
+                loadingView
+            } else {
                 ScrollView(.vertical, showsIndicators: false) {
                     ForEach(viewModel.detailResults) { media in
                         ParallaxView(imagePath: media.posterPath)
@@ -35,14 +36,14 @@ struct DetailView: View {
                     }
                 }
                 .background(backgroundView)
-            } else {
-                loadingView
             }
         }
         .onAppear {
-            guard viewModel.detailResults.isEmpty else { return }
-            viewModel.fetchDetail(mediaId: mediaId, country: userPersonal.countryName)
+            viewModel.fetchDetail(mediaId: mediaId)
         }
+        .errorAlert(errorState: $viewModel.errorState) {
+            viewModel.fetchDetail(mediaId: mediaId)
+        } cancel: { dismiss() }
     }
 }
 
@@ -73,19 +74,12 @@ private extension DetailView {
     
     @ViewBuilder
     func isCollectionView(for media: Media) -> some View {
-        if viewModel.hasCollection {
-            Divider()
-                .padding()
-            DetailCollectionView(viewModel: viewModel)
-                .padding(.bottom, 120)
-        } else {
-            Divider()
-                .padding()
-            trailerView(for: media)
-            Divider()
-                .padding()
-            descriptionView(for: media)
-        }
+        Divider()
+            .padding()
+        trailerView(for: media)
+        Divider()
+            .padding()
+        descriptionView(for: media)
     }
     
     func topView(for media: Media) -> some View {
@@ -96,7 +90,7 @@ private extension DetailView {
                 .background(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color(colorScheme == .dark ? .darkMode : .lightMode), lineWidth: 4)
-                        .shadow(color: .gray, radius: 2) 
+                        .shadow(color: .gray, radius: 2)
                 )
                 .offset(y: -50)
                 .padding(.horizontal)
