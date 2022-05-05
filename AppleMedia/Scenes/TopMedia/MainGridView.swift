@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainGridView: View {
-    @EnvironmentObject private var userPersonal: UserPersonal
+    @EnvironmentObject private var userPersonal: Settings
     @Environment(\.colorScheme) private var colorScheme
     @StateObject private var viewModel = MainGridViewModel()
     
@@ -52,6 +52,6 @@ private extension MainGridView {
 struct MainGridView_Previews: PreviewProvider {
     static var previews: some View {
         MainGridView()
-            .environmentObject(UserPersonal())
+            .environmentObject(Settings())
     }
 }

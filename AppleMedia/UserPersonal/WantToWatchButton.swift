@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WantToWatchButton: View {
-    @EnvironmentObject private var userPersonal: UserPersonal
+    @EnvironmentObject private var userPersonal: Settings
     var media: Media?
     
     var body: some View {

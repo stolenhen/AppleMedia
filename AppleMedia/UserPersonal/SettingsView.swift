@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @EnvironmentObject private var userPersonal: UserPersonal
+    @EnvironmentObject private var userPersonal: Settings
     @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {

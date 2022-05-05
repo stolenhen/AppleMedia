@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-final class UserPersonal: ObservableObject {
+final class Settings: ObservableObject {
     
     // MARK: - Properties
     
@@ -32,7 +32,7 @@ final class UserPersonal: ObservableObject {
 
 // MARK: - Settings
 
-extension UserPersonal {
+extension Settings {
     func loadMedia() {
         guard let data = storage.data(forKey: MediaKeys.storage.rawValue) else {
             return
@@ -62,7 +62,7 @@ extension UserPersonal {
 
 // MARK: - Storage
 
-extension UserPersonal {
+extension Settings {
     func isWanted(media: Media) -> Bool {
         wantToWatch.contains(media)
     }
@@ -101,7 +101,7 @@ extension UserPersonal {
     }
 }
 
-private extension UserPersonal {
+private extension Settings {
     enum MediaKeys: String {
         case storage
     }

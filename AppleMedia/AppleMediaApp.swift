@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct AppleMediaApp: App {
-    @StateObject private var userPersonal = UserPersonal()
+    @StateObject private var userPersonal = Settings()
     
     var body: some Scene {
         WindowGroup {

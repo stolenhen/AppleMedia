@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WantToWatchView: View {
-    @EnvironmentObject private var userPersonal: UserPersonal
+    @EnvironmentObject private var userPersonal: Settings
     @Environment(\.colorScheme) private var colorScheme
     @State private var showPopView = false
     @State private var media: Media?

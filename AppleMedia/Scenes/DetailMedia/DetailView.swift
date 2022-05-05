@@ -204,6 +204,6 @@ struct DetailView_Previews: PreviewProvider {
     static var previews: some View {
         DetailView(mediaId: "455832983")
             .preferredColorScheme(.dark)
-            .environmentObject(UserPersonal())
+            .environmentObject(Settings())
     }
 }

@@ -29,7 +29,7 @@
 		7B1EF513256AC601003C45BF /* WebImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B1EF512256AC601003C45BF /* WebImageViewModel.swift */; };
 		7B36D69E2573C54D0049CECE /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B36D69D2573C54D0049CECE /* SettingsModel.swift */; };
 		7B38F2BB256D1036004BAEF9 /* WantToWatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B38F2BA256D1036004BAEF9 /* WantToWatchView.swift */; };
-		7B38F2C2256D144B004BAEF9 /* UserPersonal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B38F2C1256D144B004BAEF9 /* UserPersonal.swift */; };
+		7B38F2C2256D144B004BAEF9 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B38F2C1256D144B004BAEF9 /* Settings.swift */; };
 		7B46EAA325AC3C2400AEACE0 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 7B46EAA225AC3C2400AEACE0 /* .gitignore */; };
 		7B647204256E66AF00C43E4E /* WantToWatchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B647203256E66AF00C43E4E /* WantToWatchButton.swift */; };
 		7B73D29D2584FF2800CED36B /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B73D29C2584FF2800CED36B /* UIColor+Extension.swift */; };
@@ -71,7 +71,7 @@
 		7B1EF512256AC601003C45BF /* WebImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageViewModel.swift; sourceTree = "<group>"; };
 		7B36D69D2573C54D0049CECE /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		7B38F2BA256D1036004BAEF9 /* WantToWatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WantToWatchView.swift; sourceTree = "<group>"; };
-		7B38F2C1256D144B004BAEF9 /* UserPersonal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPersonal.swift; sourceTree = "<group>"; };
+		7B38F2C1256D144B004BAEF9 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		7B46EAA225AC3C2400AEACE0 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		7B647203256E66AF00C43E4E /* WantToWatchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WantToWatchButton.swift; sourceTree = "<group>"; };
 		7B73D29C2584FF2800CED36B /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
@@ -241,7 +241,7 @@
 				7B1EF503256ABF43003C45BF /* SettingsView.swift */,
 				7B38F2BA256D1036004BAEF9 /* WantToWatchView.swift */,
 				7B647203256E66AF00C43E4E /* WantToWatchButton.swift */,
-				7B38F2C1256D144B004BAEF9 /* UserPersonal.swift */,
+				7B38F2C1256D144B004BAEF9 /* Settings.swift */,
 			);
 			path = UserPersonal;
 			sourceTree = "<group>";
@@ -371,7 +371,7 @@
 				7B1D63E8256BDEF600D826A0 /* String+Extension.swift in Sources */,
 				7B38F2BB256D1036004BAEF9 /* WantToWatchView.swift in Sources */,
 				7B647204256E66AF00C43E4E /* WantToWatchButton.swift in Sources */,
-				7B38F2C2256D144B004BAEF9 /* UserPersonal.swift in Sources */,
+				7B38F2C2256D144B004BAEF9 /* Settings.swift in Sources */,
 				7B73D29D2584FF2800CED36B /* UIColor+Extension.swift in Sources */,
 				7B8EA1F125939AB40097D31F /* Constants.swift in Sources */,
 				FE8413D1281EE03A004A5794 /* DateFormatter+Extension.swift in Sources */,

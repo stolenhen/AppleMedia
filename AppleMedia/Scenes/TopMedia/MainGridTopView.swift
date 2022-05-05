@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainGridTopView: View {
-    @EnvironmentObject private var userPersonal: UserPersonal
+    @EnvironmentObject private var userPersonal: Settings
     @Environment(\.colorScheme) private var colorScheme
     @ObservedObject var viewModel: MainGridViewModel
     
