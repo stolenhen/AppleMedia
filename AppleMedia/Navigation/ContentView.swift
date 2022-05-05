@@ -8,12 +8,10 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var userPersonal = UserPersonal()
     @AppStorage("darkMode") private var darkMode = false
     
     var body: some View {
         TabNavigation()
-            .environmentObject(userPersonal)
             .preferredColorScheme(darkMode ? .dark : .light)
     }
 }

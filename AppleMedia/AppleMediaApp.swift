@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct AppleMediaApp: App {
+    @StateObject private var userPersonal = UserPersonal()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(userPersonal)
         }
     }
 }
