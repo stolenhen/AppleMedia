@@ -22,10 +22,17 @@ public extension URLSession {
             .decode(type: T.self, decoder: decoder)
             .mapError { error -> NetworkError in
                 switch error {
-                case let error as URLError:
-                    return NetworkError.urlErrors(description: error.localizedDescription)
+                case let error as DecodingError:
+                    return .decodingError(error)
+                case let error as NSError:
+                    switch error.code {
+                    case NSURLErrorTimedOut, NSURLErrorNotConnectedToInternet:
+                        return .noInternetConnection
+                    default:
+                        return .unknownError
+                    }
                 default:
-                    return NetworkError.emptyDetailData(country: "Current Country")
+                    return .unknownError
                 }
             }
             .receive(on: DispatchQueue.main)

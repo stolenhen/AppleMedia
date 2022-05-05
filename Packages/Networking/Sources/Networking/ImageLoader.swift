@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 
 public protocol ImageLoaderProtocol {
     func fetchImage(from path: String) async throws -> UIImage?
@@ -23,13 +22,14 @@ public final class ImageLoader: ImageLoaderProtocol {
     }
     
     public func fetchImage(from path: String) async throws -> UIImage? {
-        guard let url = URL(string: path) else { return nil }
-        let request = URLRequest(url: url)
+        guard let url = URL(string: path) else {
+            throw NetworkError.invalidURL
+        }
         
+        let request = URLRequest(url: url)
         guard let data = cache?.cachedResponse(for: request)?.data, let image = UIImage(data: data) else {
             return try await loadAndCacheImage(with: request)
         }
-        
         return image
     }
 }
