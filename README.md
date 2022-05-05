@@ -4,10 +4,10 @@
 ## Description
 
 ### About the App:
-- built with SwiftUI and Combine
-- based on MVVM design pattern
-- using splendid Apple iTunes API
-- saving all user personal data to UserDefaults
+- built with SwiftUI, Combine and asynchronous (async) functions
+- based on MVVM
+- using Apple iTunes API
+- UserDefaults for storing
 
 ### Users can:
 - save a movie in "WantToWatch" collection to watch it later
