@@ -16,7 +16,7 @@ public extension URLSession {
     }
     
     func appleMediaPublisher<T: Decodable>(for url: URL, decoder: JSONDecoder = .init()) -> AnyPublisher<T, NetworkError> {
-        dataTaskPublisher(for: url)
+        dataTaskPublisher(for: makeRequest(url: url))
             .subscribe(on: DispatchQueue.global(qos: .background))
             .map(\.data)
             .decode(type: T.self, decoder: decoder)
@@ -37,5 +37,11 @@ public extension URLSession {
             }
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
+    }
+    
+    func makeRequest(url: URL) -> URLRequest {
+        let request = URLRequest(url: url)
+        request.print()
+        return request
     }
 }
