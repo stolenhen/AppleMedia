@@ -9,13 +9,13 @@ import Foundation
 import Combine
 
 public protocol NetworkServiceProtocol {
-    func fetch<T: Decodable>(endpoint: Endpoint) -> AnyPublisher<T, NetworkError>
+    func request<T: Decodable>(endpoint: Endpoint) -> AnyPublisher<T, NetworkError>
 }
 
 public final class NetworkService: NetworkServiceProtocol {
     public init() {}
     
-    public func fetch<T: Decodable>(endpoint: Endpoint) -> AnyPublisher<T, NetworkError> {
+    public func request<T: Decodable>(endpoint: Endpoint) -> AnyPublisher<T, NetworkError> {
         guard let url = endpoint.url else {
             return Fail(error: NetworkError.invalidURL)
                 .eraseToAnyPublisher()

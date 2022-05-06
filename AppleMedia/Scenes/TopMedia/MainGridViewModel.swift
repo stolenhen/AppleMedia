@@ -74,7 +74,7 @@ private extension MainGridViewModel {
     func fetchMedia() {
         ["i", "e", "s", "a", "b", "n"].forEach { item in
             networkService
-                .fetch(endpoint: .getInfo(by: .search(mediaName: item, country: "")))
+                .request(endpoint: .getInfo(by: .search(mediaName: item, country: "")))
                 .compactMap { $0 as RootDetail? }
                 .map { root in
                     let new = root.results.map(Media.init)

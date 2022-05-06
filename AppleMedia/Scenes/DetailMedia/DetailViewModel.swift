@@ -40,7 +40,7 @@ final class DetailViewModel: ObservableObject {
     func fetchDetail(mediaId: String) {
         guard detailResults.isEmpty else { return }
         cleanErrorState()
-        networkService.fetch(endpoint: .getInfo(by: .detail(id: mediaId)))
+        networkService.request(endpoint: .getInfo(by: .detail(id: mediaId)))
             .compactMap { $0 as RootDetail }
             .catch(handleError)
             .map(\.results)
