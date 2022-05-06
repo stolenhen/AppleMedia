@@ -13,7 +13,6 @@ public protocol NetworkServiceProtocol {
 }
 
 public final class NetworkService: NetworkServiceProtocol {
-    
     public init() {}
     
     public func fetch<T: Decodable>(endpoint: Endpoint) -> AnyPublisher<T, NetworkError> {
@@ -21,11 +20,32 @@ public final class NetworkService: NetworkServiceProtocol {
             return Fail(error: NetworkError.invalidURL)
                 .eraseToAnyPublisher()
         }
-        return URLSession.session.appleMediaPublisher(for: url)
+        return URLSession.session.networkingPublisher(for: makeRequest(url: url))
+            .mapError(handleError)
+            .eraseToAnyPublisher()
     }
 }
 
-public enum ResponseType {
-    case detail(id: String)
-    case search(mediaName: String, country: String)
+private extension NetworkService {
+    func handleError(_ error: Error) -> NetworkError {
+        switch error {
+        case let error as DecodingError:
+            return .decodingError(error)
+        case let error as NSError:
+            switch error.code {
+            case NSURLErrorTimedOut, NSURLErrorNotConnectedToInternet:
+                return .noInternetConnection
+            default:
+                return .unknownError
+            }
+        default:
+            return .unknownError
+        }
+    }
+    
+    func makeRequest(url: URL) -> URLRequest {
+        let request = URLRequest(url: url)
+        request.print()
+        return request
+    }
 }

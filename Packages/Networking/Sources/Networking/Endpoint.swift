@@ -7,6 +7,11 @@
 
 import Foundation
 
+public enum ResponseType {
+    case detail(id: String)
+    case search(mediaName: String, country: String)
+}
+
 public struct Endpoint {
     let path: String
     let queryItems: [URLQueryItem]
