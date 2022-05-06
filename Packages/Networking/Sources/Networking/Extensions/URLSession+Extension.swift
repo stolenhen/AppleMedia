@@ -20,28 +20,32 @@ public extension URLSession {
             .subscribe(on: DispatchQueue.global(qos: .background))
             .map(\.data)
             .decode(type: T.self, decoder: decoder)
-            .mapError { error -> NetworkError in
-                switch error {
-                case let error as DecodingError:
-                    return .decodingError(error)
-                case let error as NSError:
-                    switch error.code {
-                    case NSURLErrorTimedOut, NSURLErrorNotConnectedToInternet:
-                        return .noInternetConnection
-                    default:
-                        return .unknownError
-                    }
-                default:
-                    return .unknownError
-                }
-            }
+            .mapError(handleError)
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
-    
+}
+
+private extension URLSession {
     func makeRequest(url: URL) -> URLRequest {
         let request = URLRequest(url: url)
         request.print()
         return request
+    }
+    
+    func handleError(_ error: Error) -> NetworkError {
+        switch error {
+        case let error as DecodingError:
+            return .decodingError(error)
+        case let error as NSError:
+            switch error.code {
+            case NSURLErrorTimedOut, NSURLErrorNotConnectedToInternet:
+                return .noInternetConnection
+            default:
+                return .unknownError
+            }
+        default:
+            return .unknownError
+        }
     }
 }
