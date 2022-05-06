@@ -1,6 +1,6 @@
 //
-//  Errors.swift
-//  AppleMedia
+//  NetworkError.swift
+//  Networking
 //
 //  Created by stolenhen on 02.12.2020.
 //

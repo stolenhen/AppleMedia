@@ -1,6 +1,6 @@
 //
-//  DataLoader.swift
-//  LazyVGridTesting
+//  ImageLoader.swift
+//  Networking
 //
 //  Created by stolenhen on 16.12.2020.
 //

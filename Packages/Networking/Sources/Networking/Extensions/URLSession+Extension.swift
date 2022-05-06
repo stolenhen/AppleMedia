@@ -1,6 +1,6 @@
 //
 //  URLSession+Extension.swift
-//  AppleMedia
+//  Networking
 //
 //  Created by stolenhen on 23.12.2020.
 //

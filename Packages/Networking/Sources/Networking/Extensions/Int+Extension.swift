@@ -1,6 +1,6 @@
 //
 //  Int+Extension.swift
-//  AppleMedia
+//  Networking
 //
 //  Created by stolenhen on 18.12.2020.
 //
