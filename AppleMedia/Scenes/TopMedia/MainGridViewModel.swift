@@ -11,19 +11,11 @@ import Networking
 
 final class MainGridViewModel: ObservableObject {
     
-    // MARK: - Publishers
-    
-    @Published private(set) var mediasResult: [Media] = []
-    @Published var sortType: SortingType = .noSorting
-    @Published var searchTerm = ""
-    @Published var toDetail: ToDetail?
-    @Published private var media: [Media] = []
-    @Published var currentGenre: String = ""
-    
     // MARK: - Properties
     
     private let networkService: NetworkServiceProtocol
     private var anyCancellable: Set<AnyCancellable> = []
+    private var media: [Media] = []
     
     var filteredContent: [Media] {
         switch sortType {
@@ -40,6 +32,16 @@ final class MainGridViewModel: ObservableObject {
     var genresResult: [String] {
         Set(mediasResult.map(\.genreName)).sorted()
     }
+    
+    
+    // MARK: - Publishers
+    
+    @Published private(set) var mediasResult: [Media] = []
+    
+    @Published var sortType: SortingType = .noSorting
+    @Published var searchTerm = ""
+    @Published var toDetail: ToDetail?
+    @Published var currentGenre: String = ""
     
     // MARK: - Init
     

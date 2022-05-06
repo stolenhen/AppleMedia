@@ -11,21 +11,20 @@ import SwiftUI
 
 final class DetailViewModel: ObservableObject {
     
+    // MARK: - Properties
+    
+    private let networkService: NetworkServiceProtocol
+    private var anyCancellable: Set<AnyCancellable> = []
+    
     // MARK: - Publishers
     
     @Published private(set) var detailResults: [Media] = []
+    
     @Published var toDetail: ToDetail?
     @Published var isLoading: Bool = false
     @Published var errorState: ErrorState = .init(isError: false, descriptor: nil)
     @Published var presenter: Presenter? = nil
     
-    // MARK: - Properties
-    
-    private(set) var collections: [Media] = []
-    private let networkService: NetworkServiceProtocol
-    private var anyCancellable: Set<AnyCancellable> = []
-
-    var hasCollection: Bool { collections.count >= 1 }
     
     // MARK: - Init
     
@@ -87,10 +86,7 @@ struct Media: Identifiable, Codable {
     var collectionPrice: String { String(detailResult.collectionHdPrice ?? 0) }
     
     var name: String {
-        detailResult.name
-            ?? detailResult.trackName
-            ?? detailResult.collectionName
-            ?? "Unknown media"
+        detailResult.name ?? detailResult.trackName ?? detailResult.collectionName ?? "Unknown media"
     }
     
     var releaseDate: String {

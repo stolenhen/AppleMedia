@@ -17,10 +17,9 @@ extension String {
             .displayName(forKey: .countryCode, value: self) ?? "Unknown Country" }
     
     var getCountryFlag: String {
-        let code = self
         let base: UInt32 = 127397
         var flag = ""
-        for v in code.unicodeScalars {
+        for v in self.unicodeScalars {
             flag.unicodeScalars.append(UnicodeScalar(base + v.value)!)
         }
         return String(flag)

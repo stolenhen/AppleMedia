@@ -137,7 +137,7 @@
 				7B1EF4DD256AAC83003C45BF /* AppleMediaApp.swift */,
 				7B1EF4F6256ABBE1003C45BF /* Models */,
 				7B1EF4F8256ABBF1003C45BF /* Navigation */,
-				7BCCDEB8259481490056EB3E /* UserPersonal */,
+				7BCCDEB8259481490056EB3E /* Settings */,
 				FE8C320E280215E00073D409 /* Scenes */,
 				7B38F2C4256D213F004BAEF9 /* Styles */,
 				7B1D63E6256BDEDA00D826A0 /* Utils */,
@@ -235,7 +235,7 @@
 			path = DetailMedia;
 			sourceTree = "<group>";
 		};
-		7BCCDEB8259481490056EB3E /* UserPersonal */ = {
+		7BCCDEB8259481490056EB3E /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				7B1EF503256ABF43003C45BF /* SettingsView.swift */,
@@ -243,7 +243,7 @@
 				7B647203256E66AF00C43E4E /* WantToWatchButton.swift */,
 				7B38F2C1256D144B004BAEF9 /* Settings.swift */,
 			);
-			path = UserPersonal;
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		7BD6081A2577969A006ECF38 /* Errors+Warnings */ = {

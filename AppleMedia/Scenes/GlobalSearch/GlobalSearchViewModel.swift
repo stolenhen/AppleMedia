@@ -10,6 +10,7 @@ import Foundation
 import Networking
 
 final class GlobalSearchViewModel: ObservableObject {
+    
     // MARK: - Properties
     
     private let networkService: NetworkServiceProtocol
@@ -29,12 +30,13 @@ final class GlobalSearchViewModel: ObservableObject {
     
     // MARK: - Publishers
     
-    @Published var searchQuery = ""
-    @Published var toDetail: ToDetail? = nil
     @Published private(set) var presenter: Presenter? = .none
     @Published private(set) var globalSearchResult: [Media] = []
     @Published private(set) var isSearching = false
     @Published private(set) var nothingFound = false
+    
+    @Published var searchQuery = ""
+    @Published var toDetail: ToDetail? = nil
     
     // MARK: - Init
     
@@ -53,7 +55,7 @@ final class GlobalSearchViewModel: ObservableObject {
 private extension GlobalSearchViewModel {
     func chain() {
         $searchQuery
-            .debounce(for: .seconds(2), scheduler: RunLoop.main)
+            .debounce(for: .seconds(1), scheduler: RunLoop.main)
             .filter(validSearching)
             .flatMap(search)
             .map { $0.map(Media.init) }

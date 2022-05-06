@@ -15,7 +15,7 @@ struct ParallaxView: View {
             if proxy.frame(in: .global).minY > -300 {
                 WebImageView(imagePath: imagePath.resizedPath(size: 600))
                     .scaledToFill()
-                    .offset(y: -proxy.frame(in: .global).minY)
+                    .offset(y: offsetY(proxy: proxy))
                     .frame(width: Constants.screenWidth, height: parallaxHeight(proxy: proxy))
             }
         }
@@ -24,6 +24,10 @@ struct ParallaxView: View {
 }
 
 private extension ParallaxView {
+    func offsetY(proxy: GeometryProxy) -> CGFloat {
+        -proxy.frame(in: .global).minY
+    }
+    
     func parallaxHeight(proxy: GeometryProxy) -> CGFloat {
         proxy.frame(in: .global).minY > 0 ? proxy.frame(in: .global).minY + 400 : 400
     }
