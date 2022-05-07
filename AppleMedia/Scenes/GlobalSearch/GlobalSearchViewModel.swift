@@ -71,7 +71,7 @@ private extension GlobalSearchViewModel {
     
     func search(searchQuery: String) -> AnyPublisher<[DetailModel], NetworkError> {
         networkService.request(endpoint: .getInfo(by: .search(mediaName: searchQuery, country: "US")))
-            .compactMap { $0 as RootDetail? }
+            .map { $0 as RootDetail }
             .map(\.results)
             .map(loaded)
             .eraseToAnyPublisher()

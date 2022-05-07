@@ -75,21 +75,22 @@ private extension MainGridViewModel {
         ["i", "e", "s", "a", "b", "n"].forEach { item in
             networkService
                 .request(endpoint: .getInfo(by: .search(mediaName: item, country: "")))
-                .compactMap { $0 as RootDetail? }
-                .map { root in
-                    let new = root.results.map(Media.init)
-                    self.media.append(contentsOf: new)
-                }
-                .sink(receiveCompletion: {
-                    if case .failure(let error) = $0 {
-                        print(error.localizedDescription)
-                    }
-                }, receiveValue: { root in
-                    self.mediasResult = self.media.reduce([Media]()) { result, media in
-                        result.contains(media) ? result : result + [media]
-                    }
-                })
-                .store(in: &anyCancellable)
+                .map { $0 as RootDetail }
+                .catch(handleError)
+                .map { self.media.append(contentsOf: $0.results.map(Media.init)) }
+                .map(handleResult)
+                .assign(to: &$mediasResult)
         }
+    }
+    
+    func handleResult() -> [Media] {
+        let media = self.media.reduce([Media]()) { result, media in
+            result.contains(media) ? result : result + [media]
+        }
+        return media
+    }
+    
+    func handleError(_ networkError: NetworkError) -> Empty<RootDetail, Never> {
+        .init()
     }
 }

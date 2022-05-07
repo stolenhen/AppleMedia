@@ -25,7 +25,6 @@ final class DetailViewModel: ObservableObject {
     @Published var errorState: ErrorState = .init(isError: false, descriptor: nil)
     @Published var presenter: Presenter? = nil
     
-    
     // MARK: - Init
     
     init(networkService: NetworkService = .init()) {
