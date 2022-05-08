@@ -31,7 +31,7 @@ struct SearchView: View {
         .padding(10)
         .background(
             RoundedRectangle(cornerRadius: 25)
-                .fill(Color.white)
+                .fill(.white)
                 .opacity(colorScheme == .dark ? 0.1 : 1)
         )
         .padding(.horizontal, 5)

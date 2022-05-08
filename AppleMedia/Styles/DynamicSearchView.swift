@@ -45,7 +45,8 @@ struct DynamicSearchView: View {
             .padding(5)
             .background(
                 RoundedRectangle(cornerRadius: 25)
-                    .fill(Color.white).opacity(colorScheme == .dark ? 0.1 : 1)
+                    .fill(.white)
+                    .opacity(colorScheme == .dark ? 0.1 : 1)
             )
             Spacer()
             Text(expand ? title : title.getCountryName + " " + title.getCountryFlag)
@@ -54,7 +55,8 @@ struct DynamicSearchView: View {
                 .padding(.horizontal, expand ? 5 : 10)
                 .background(
                     RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.white).opacity(colorScheme == .dark ? 0.1 : 1))
+                        .fill(.white)
+                        .opacity(colorScheme == .dark ? 0.1 : 1))
         }
         .frame(height: 50)
     }
