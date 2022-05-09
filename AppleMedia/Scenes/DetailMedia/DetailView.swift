@@ -159,7 +159,7 @@ private extension DetailView {
     }
 
     func info(for type: Media.ShortInfoType, media: Media) -> some View {
-        HStack(spacing: 0) {
+        HStack(spacing: .zero) {
             Text(type.rawValue)
                 .fontWeight(.light)
                 .foregroundColor(.secondary)

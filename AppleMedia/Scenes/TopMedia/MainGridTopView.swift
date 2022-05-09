@@ -13,7 +13,7 @@ struct MainGridTopView: View {
     @ObservedObject var viewModel: MainGridViewModel
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: .zero) {
             Color(colorScheme == .light ? .lightMode : .darkMode)
                 .frame(height: Constants.screenHeight * 0.04)
             DynamicSearchView(expand: $userPersonal.expand,

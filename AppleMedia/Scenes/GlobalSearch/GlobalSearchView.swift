@@ -12,7 +12,7 @@ struct GlobalSearchView: View {
     @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: .zero) {
             SearchView(searchQuery: $viewModel.searchQuery)
                 .padding(.top, Constants.screenHeight * 0.04)
                 .background(Color(colorScheme == .dark ? .darkMode : .lightMode))
