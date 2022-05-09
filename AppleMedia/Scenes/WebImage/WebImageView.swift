@@ -8,10 +8,15 @@
 import SwiftUI
 
 struct WebImageView: View {
-    @StateObject private var viewModel = WebImageViewModel()
+    @StateObject private var viewModel: WebImageViewModel
     @Environment(\.colorScheme) private var colorScheme
     
-    let imagePath: String
+    private let imagePath: String
+    
+    init(imagePath: String) {
+        self.imagePath = imagePath
+        _viewModel = StateObject(wrappedValue: .init())
+    }
     
     var body: some View {
         ZStack {
