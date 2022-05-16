@@ -37,13 +37,13 @@ private extension SettingsView {
                     Text(setting.title)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(10)
+                .padding(spacing: .normal)
                 .background(RoundedRectangle(cornerRadius: 30).stroke())
                 .font(.title2).foregroundColor(.primary)
                 .opacity(setting.type == .cleanStorage && userPersonal.wantToWatch.isEmpty ? 0.5 : 1)
             }
         )
-            .padding(.bottom, 10)
+            .padding(.bottom, spacing: .normal)
             .disabled(setting.type == .cleanStorage ? userPersonal.wantToWatch.isEmpty : false)
     }
 }

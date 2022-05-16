@@ -15,7 +15,7 @@ struct WantToWatchView: View {
     
     var body: some View {
         ZStack {
-            VStack(alignment: .center, spacing: 0) {
+            VStack(alignment: .center, spacing: .zero) {
                 Color(colorScheme == .light ? .lightMode : .darkMode)
                     .frame(height: Constants.screenHeight * 0.04)
                 
@@ -26,7 +26,7 @@ struct WantToWatchView: View {
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
-                .padding(10)
+                .padding(spacing: .normal)
                 .background(Color(colorScheme == .dark ? .darkMode : .lightMode))
                 Divider()
                 ScrollView(showsIndicators: false) {
@@ -40,7 +40,7 @@ struct WantToWatchView: View {
                             }
                     }
                 }
-                .padding(.horizontal, 5)
+                .padding(.horizontal, spacing: .half)
                 .onChange(of: userPersonal.wantToWatch.count) { _ in
                     userPersonal.storeMedia()
                 }
@@ -91,13 +91,13 @@ struct WantItemView: View {
                         .font(.system(size: 18, weight: .light))
                         .foregroundColor(.primary)
                         .frame(width: 200, alignment: .leading)
-                        .padding(.leading, 10)
+                        .padding(.leading, spacing: .normal)
                     Spacer()
                     Text(media.genreName)
                         .lineLimit(2)
                         .font(.system(size: 12, weight: .light))
                         .foregroundColor(.primary)
-                        .padding(.trailing, 10)
+                        .padding(.trailing, spacing: .normal)
                 }
                 .background(Color(colorScheme == .dark ? .darkMode : .lightMode).opacity(0.6))
                 Spacer()

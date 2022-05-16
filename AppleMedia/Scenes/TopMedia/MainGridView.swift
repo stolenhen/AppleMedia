@@ -13,7 +13,7 @@ struct MainGridView: View {
     @StateObject private var viewModel = MainGridViewModel()
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: .zero) {
             MainGridTopView(viewModel: viewModel)
             Divider()
             ScrollView(showsIndicators: false) {
@@ -33,7 +33,7 @@ struct MainGridView: View {
                     }
                 }
             }
-            .padding(.horizontal, 5)
+            .padding(.horizontal, spacing: .half)
             .overlay(loadingView)
         }
         .ignoresSafeArea(edges: .top)

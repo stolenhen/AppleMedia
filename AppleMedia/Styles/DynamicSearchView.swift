@@ -36,7 +36,7 @@ struct DynamicSearchView: View {
                             Image(systemName: "multiply.circle")
                                 .foregroundColor(.secondary)
                                 .font(.system(size: 18, weight: .light))
-                                .padding(.trailing, 5)
+                                .padding(.trailing, spacing: .half)
                         }
                     }
                 }
@@ -51,8 +51,8 @@ struct DynamicSearchView: View {
             Spacer()
             Text(expand ? title : title.getCountryName + " " + title.getCountryFlag)
                 .font(.system(size: 16, weight: .light))
-                .padding(.vertical, 5)
-                .padding(.horizontal, expand ? 5 : 10)
+                .padding(.vertical, spacing: .half)
+                .padding(.horizontal, spacing: expand ? .half : .normal)
                 .background(
                     RoundedRectangle(cornerRadius: 20)
                         .fill(.white)

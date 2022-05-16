@@ -28,13 +28,13 @@ struct SearchView: View {
             }
             .opacity(searchQuery.isEmpty ? 0 : 1)
         }
-        .padding(10)
+        .padding(spacing: .normal)
         .background(
             RoundedRectangle(cornerRadius: 25)
                 .fill(.white)
                 .opacity(colorScheme == .dark ? 0.1 : 1)
         )
-        .padding(.horizontal, 5)
+        .padding(.horizontal, spacing: .half)
         .frame(height: 50)
     }
 }

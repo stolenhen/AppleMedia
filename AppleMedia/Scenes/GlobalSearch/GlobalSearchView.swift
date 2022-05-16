@@ -12,12 +12,12 @@ struct GlobalSearchView: View {
     @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: .zero) {
             SearchView(searchQuery: $viewModel.searchQuery)
                 .padding(.top, Constants.screenHeight * 0.04)
                 .background(Color(colorScheme == .dark ? .darkMode : .lightMode))
             Divider()
-                .padding(.top, 5)
+                .padding(.top, spacing: .half)
             ScrollView(.vertical, showsIndicators: false) {
                 ForEach(viewModel.genresResult, id: \.self) { genre in
                     GenreRow(viewModel: viewModel, genreTitle: genre)
@@ -66,7 +66,7 @@ struct GenreRow: View {
                 Text(genreTitle)
                     .font(.system(size: 16, weight: .bold))
                     .foregroundColor(.primary)
-                    .padding(.top, 5)
+                    .padding(.top, spacing: .half)
                 Spacer()
                 Text("Found media: \(viewModel.sortedBy(genre: genreTitle).count)")
                     .font(.system(size: 12, weight: .bold))
@@ -99,10 +99,10 @@ struct GenreRow: View {
                 }
             }
             Divider()
-                .padding(5)
+                .padding(spacing: .half)
                 .foregroundColor(Color(.lightGray))
         }
-        .padding(.horizontal, 5)
+        .padding(.horizontal, spacing: .half)
     }
 }
 

@@ -13,7 +13,7 @@ struct MainGridTopView: View {
     @ObservedObject var viewModel: MainGridViewModel
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: .zero) {
             Color(colorScheme == .light ? .lightMode : .darkMode)
                 .frame(height: Constants.screenHeight * 0.04)
             DynamicSearchView(expand: $userPersonal.expand,
@@ -28,7 +28,7 @@ struct MainGridTopView: View {
                 genres
             }
         }
-        .padding(.horizontal, 5)
+        .padding(.horizontal, spacing: .half)
         .background(Color(colorScheme == .light ? .lightMode : .darkMode))
     }
 }
@@ -45,13 +45,13 @@ private extension MainGridTopView {
                     }) {
                         Text(genre)
                             .font(.system(size: 14, weight: .light))
-                            .padding(.vertical, 5)
-                            .padding(.horizontal, 10)
+                            .padding(.vertical, spacing: .half)
+                            .padding(.horizontal, spacing: .normal)
                             .background(
                                 RoundedRectangle(cornerRadius: 20)
                                     .strokeBorder(lineWidth: 1)
                             )
-                            .padding(.bottom, 10)
+                            .padding(.bottom, spacing: .normal)
                             .foregroundColor(isSelected(genre: genre) ? .pink : .white)
                     }
                     .buttonStyle(ResizableButtonStyle())

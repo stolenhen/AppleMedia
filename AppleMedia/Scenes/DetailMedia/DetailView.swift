@@ -26,7 +26,7 @@ struct DetailView: View {
                             .onTapGesture {
                                 dismiss()
                             }
-                        VStack(alignment: .center, spacing: 0) {
+                        VStack(alignment: .center, spacing: .zero) {
                             topView(for: media)
                             buttonsView(for: media)
                             infoView(for: media)
@@ -104,7 +104,7 @@ private extension DetailView {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding([.top, .horizontal], 10)
+        .padding([.top, .horizontal], spacing: .normal)
     }
     
     func buttonsView(for media: Media) -> some View {
@@ -112,7 +112,7 @@ private extension DetailView {
             Link(destination: media.itunesLink) {
                 Label("Itunes", systemImage: "applelogo")
                     .padding(.vertical, 2)
-                    .padding(.horizontal, 5)
+                    .padding(.horizontal, spacing: .half)
                     .foregroundColor(.gray)
                     .background(
                         RoundedRectangle(cornerRadius: 10)
@@ -121,7 +121,7 @@ private extension DetailView {
                                 Color(.systemPink))) }
             Text(media.country)
                 .padding(.vertical, 2)
-                .padding(.horizontal, 5)
+                .padding(.horizontal, spacing: .half)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke()
@@ -136,7 +136,7 @@ private extension DetailView {
     }
 
     func descriptionView(for media: Media) -> some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: .zero) {
             Text("Description")
                 .detailTitle
             Text(media.description)
@@ -148,7 +148,7 @@ private extension DetailView {
     }
 
     func infoView(for media: Media) -> some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .leading, spacing: .zero) {
             Text("Short information")
                 .detailTitle
             ForEach(media.shortInfo) { mediaType in
@@ -159,7 +159,7 @@ private extension DetailView {
     }
 
     func info(for type: Media.ShortInfoType, media: Media) -> some View {
-        HStack(spacing: 0) {
+        HStack(spacing: .zero) {
             Text(type.rawValue)
                 .fontWeight(.light)
                 .foregroundColor(.secondary)
@@ -188,7 +188,7 @@ private struct DetailTitle: ViewModifier {
         content
             .font(.system(size: 20, weight: .light))
             .foregroundColor(.primary)
-            .padding(.bottom, 5)
+            .padding(.bottom, spacing: .half)
     }
 }
 

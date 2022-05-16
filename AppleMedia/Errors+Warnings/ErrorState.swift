@@ -43,9 +43,3 @@ struct ErrorAlert: ViewModifier {
         }
     }
 }
-
-extension View {
-    func errorAlert(errorState: Binding<ErrorState>, retry: (() -> Void)? = nil, cancel: (() -> Void)? = nil) -> some View {
-        self.modifier(ErrorAlert(errorState: errorState, retry: retry, cancel: cancel))
-    }
-}
