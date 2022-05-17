@@ -44,7 +44,8 @@ final class DetailViewModel: ObservableObject {
             .catch(handleError)
             .map(\.results)
             .map { $0.map(Media.init) }
-            .assign(to: &$detailResults)
+            .sink { [weak self] in self?.detailResults = $0 }
+            .store(in: &anyCancellable)
     }
 }
 
