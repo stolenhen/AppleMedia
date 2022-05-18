@@ -1,5 +1,5 @@
 //
-//  MainGreedViewModel.swift
+//  TopMediaViewModel.swift
 //  AppleMedia
 //
 //  Created by stolenhen on 22.11.2020.
@@ -9,7 +9,7 @@ import Combine
 import Foundation
 import Networking
 
-final class MainGridViewModel: ObservableObject {
+final class TopMediaViewModel: ObservableObject {
     
     // MARK: - Properties
     
@@ -70,7 +70,7 @@ final class MainGridViewModel: ObservableObject {
     }
 }
 
-private extension MainGridViewModel {
+private extension TopMediaViewModel {
     func fetchMedia() {
         ["i", "e", "s", "a", "b", "n"].forEach { item in
             networkService

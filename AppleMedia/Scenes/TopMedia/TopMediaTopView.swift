@@ -1,5 +1,5 @@
 //
-//  MainGridTopView.swift
+//  TopMediaTopView.swift
 //  AppleMedia
 //
 //  Created by stolenhen on 01.12.2020.
@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct MainGridTopView: View {
+struct TopMediaTopView: View {
     @EnvironmentObject private var userPersonal: Settings
     @Environment(\.colorScheme) private var colorScheme
-    @ObservedObject var viewModel: MainGridViewModel
+    @ObservedObject var viewModel: TopMediaViewModel
     
     var body: some View {
         VStack(spacing: .zero) {
@@ -33,7 +33,7 @@ struct MainGridTopView: View {
     }
 }
 
-private extension MainGridTopView {
+private extension TopMediaTopView {
     var genres: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
@@ -67,6 +67,6 @@ private extension MainGridTopView {
 
 struct TopView_Previews: PreviewProvider {
     static var previews: some View {
-        MainGridTopView(viewModel: MainGridViewModel())
+        TopMediaTopView(viewModel: TopMediaViewModel())
     }
 }

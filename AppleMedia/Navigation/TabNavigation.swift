@@ -57,7 +57,7 @@ private extension TabNavigation {
         var view: some View {
             switch self {
             case .topMovies:
-                 MainGridView()
+                 TopMediaView()
             case .globalSearch:
                  GlobalSearchView()
             case .wantToWatch:

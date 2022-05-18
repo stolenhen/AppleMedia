@@ -15,7 +15,7 @@ struct SearchView: View {
         HStack(spacing: 10) {
             Image(systemName: "magnifyingglass.circle")
                 .resizable()
-                .frame(width: 20, height: 20)
+                .squareFrame(size: 20)
                 .foregroundColor(.secondary)
             TextField("Search...", text: $searchQuery)
             Button {
@@ -23,7 +23,7 @@ struct SearchView: View {
             } label: {
                 Image(systemName: "multiply.circle")
                     .resizable()
-                    .frame(width: 18, height: 18)
+                    .squareFrame(size: 18)
                     .foregroundColor(.secondary)
             }
             .opacity(searchQuery.isEmpty ? 0 : 1)

@@ -1,5 +1,5 @@
 //
-//  MainGridView.swift
+//  TopMediaView.swift
 //  AppleMedia
 //
 //  Created by stolenhen on 22.11.2020.
@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct MainGridView: View {
+struct TopMediaView: View {
     @EnvironmentObject private var userPersonal: Settings
     @Environment(\.colorScheme) private var colorScheme
-    @StateObject private var viewModel = MainGridViewModel()
+    @StateObject private var viewModel = TopMediaViewModel()
     
     var body: some View {
         VStack(spacing: .zero) {
-            MainGridTopView(viewModel: viewModel)
+            TopMediaTopView(viewModel: viewModel)
             Divider()
             ScrollView(showsIndicators: false) {
                 LazyVGrid(columns: GridMode.flexible(columnsCount: 3, spacing: 10).columns, spacing: 10) {
@@ -40,7 +40,7 @@ struct MainGridView: View {
     }
 }
 
-private extension MainGridView {
+private extension TopMediaView {
     @ViewBuilder
     var loadingView: some View {
         if viewModel.mediasResult.isEmpty {
@@ -51,7 +51,7 @@ private extension MainGridView {
 
 struct MainGridView_Previews: PreviewProvider {
     static var previews: some View {
-        MainGridView()
+        TopMediaView()
             .environmentObject(Settings())
     }
 }
