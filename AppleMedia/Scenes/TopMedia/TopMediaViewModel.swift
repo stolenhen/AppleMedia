@@ -84,13 +84,13 @@ private extension TopMediaViewModel {
     }
     
     func handleResult() -> [Media] {
-        let media = self.media.reduce([Media]()) { result, media in
+        return media.reduce([Media]()) { result, media in
             result.contains(media) ? result : result + [media]
         }
-        return media
     }
     
     func handleError(_ networkError: NetworkError) -> Empty<RootDetail, Never> {
+        // TODO: error handling
         .init()
     }
 }

@@ -117,7 +117,7 @@ struct PopView: View {
     @Binding var showPopView: Bool
     
     var body: some View {
-        VStack(alignment: .center, spacing: 10) {
+        VStack(alignment: .center, spacing: Spacing.normal.value) {
             WebImageView(imagePath: media.posterPath.resizedPath(size: 400))
                 .scaledToFill()
                 .frame(width: Constants.screenWidth * 0.4, height: Constants.screenHeight * 0.3)
@@ -131,7 +131,7 @@ struct PopView: View {
                     showPopView.toggle()
                 }
             HStack {
-                VStack(alignment: .leading, spacing: 5) {
+                VStack(alignment: .leading, spacing: Spacing.half.value) {
                     Text(media.name)
                         .font(.system(size: 16))
                         .foregroundColor(.primary)

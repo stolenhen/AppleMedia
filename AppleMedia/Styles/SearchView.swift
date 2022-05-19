@@ -12,7 +12,7 @@ struct SearchView: View {
     @Binding var searchQuery: String
     
     var body: some View {
-        HStack(spacing: 10) {
+        HStack(spacing: Spacing.normal.value) {
             Image(systemName: "magnifyingglass.circle")
                 .resizable()
                 .squareFrame(size: 20)

@@ -46,7 +46,7 @@ private extension GlobalSearchView {
 
 struct LoadingView: View {
     var body: some View {
-        VStack(alignment: .center, spacing: 5) {
+        VStack(alignment: .center, spacing: Spacing.half.value) {
             Text("Loading...")
                 .font(.system(size: 14))
             ProgressView()
@@ -61,7 +61,7 @@ struct GenreRow: View {
     let genreTitle: String
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 5) {
+        VStack(alignment: .leading, spacing: Spacing.half.value) {
             HStack {
                 Text(genreTitle)
                     .font(.system(size: 16, weight: .bold))
@@ -75,7 +75,7 @@ struct GenreRow: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(viewModel.sortedBy(genre: genreTitle)) { media in
-                        VStack(alignment: .leading, spacing: 5) {
+                        VStack(alignment: .leading, spacing: Spacing.half.value) {
                             Text(media.name)
                                 .frame(width: 140)
                                 .font(.system(size: 14))

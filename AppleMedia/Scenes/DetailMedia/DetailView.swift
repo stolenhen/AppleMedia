@@ -94,7 +94,7 @@ private extension DetailView {
                 )
                 .offset(y: -50)
                 .padding(.horizontal)
-            VStack(alignment: .leading, spacing: 5) {
+            VStack(alignment: .leading, spacing: Spacing.half.value) {
                 Text(media.name)
                     .font(.title3)
                     .foregroundColor(.primary)
@@ -118,7 +118,10 @@ private extension DetailView {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke()
                             .foregroundColor(
-                                Color(.systemPink))) }
+                                Color(.systemPink)
+                            )
+                    )
+            }
             Text(media.country)
                 .padding(.vertical, 2)
                 .padding(.horizontal, spacing: .half)

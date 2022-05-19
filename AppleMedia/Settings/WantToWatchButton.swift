@@ -13,7 +13,7 @@ struct WantToWatchButton: View {
     
     var body: some View {
         Button(action: wantToWatch) {
-            HStack(spacing: 5) {
+            HStack(spacing: Spacing.half.value) {
                 Image(systemName: isWanted ? "heart.fill" : "heart")
                     .font(.system(size: 24, weight: .light))
                     .foregroundColor(Color(.systemPink))

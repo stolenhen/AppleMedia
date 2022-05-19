@@ -17,7 +17,10 @@ struct TopMediaView: View {
             TopMediaTopView(viewModel: viewModel)
             Divider()
             ScrollView(showsIndicators: false) {
-                LazyVGrid(columns: GridMode.flexible(columnsCount: 3, spacing: 10).columns, spacing: 10) {
+                LazyVGrid(
+                    columns: GridMode.flexible(columnsCount: 3, spacing: Spacing.normal.value).columns,
+                    spacing: Spacing.normal.value
+                ) {
                     ForEach(viewModel.filteredContent) { media in
                         WebImageView(imagePath: media.posterPath.resizedPath(size: 200))
                             .aspectRatio(contentMode: .fill)
